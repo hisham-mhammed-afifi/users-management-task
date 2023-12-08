@@ -12,10 +12,14 @@ import { IconComponent } from './components/icon/icon.component';
     PaginatorComponent,
     DropdownComponent,
     CheckboxComponent,
-    IconComponent
+    IconComponent,
   ],
-  imports: [
-    CommonModule
-  ]
+  imports: [CommonModule],
+  exports: [
+    PaginatorComponent,
+    DropdownComponent,
+    CheckboxComponent,
+    IconComponent,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}
