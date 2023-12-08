@@ -1,1 +1,22 @@
-<p>paginator works!</p>
+<div *ngIf="itemsLength" class="flex items-center justify-around min-w-[300px]">
+  <button
+    class="rounded-full bg-neutral-700 w-10 h-10 p-3"
+    (click)="prev()"
+  >
+    <app-icon icon="chevron-left" [size]="14"></app-icon>
+  </button>
+  <button
+    *ngFor="let i of pageNumbers"
+    class="rounded-full w-6 h-6"
+    [class.bg-orange-500]="currentPage === i"
+    (click)="pageChange(i)"
+  >
+    {{ i }}
+  </button>
+  <button
+    class="rounded-full bg-neutral-700 w-10 h-10 p-3"
+    (click)="next()"
+  >
+    <app-icon icon="chevron-right" [size]="14"></app-icon>
+  </button>
+</div>

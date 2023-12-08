@@ -6,11 +6,16 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./icon.component.scss'],
 })
 export class IconComponent implements OnInit {
-  @Input() icon = '';
+  private _iconPath = '';
   @Input() color = '#fff';
   @Input() size = 16;
+  @Input() set icon(name: string) {
+    this._iconPath = 'assets/icons/icons.svg#' + name;
+  }
 
-  iconPath = 'assets/icons/icons.svg#' + this.icon;
+  get icon(): string {
+    return this._iconPath;
+  }
 
   constructor() {}
 
