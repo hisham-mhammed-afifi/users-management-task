@@ -1,1 +1,30 @@
-<p>dropdown works!</p>
+<div
+  class="flex justify-between items-center font-semibold cursor-pointer border-4 py-1 px-2 border-neutral-500 w-full"
+  (click)="showList = !showList"
+>
+  <p *ngIf="label">{{ label }}</p>
+  <p class="text-orange-400">{{ selectedItem.label }}</p>
+  <app-icon icon="chevron-down" [size]="12"></app-icon>
+</div>
+
+<div
+  *ngIf="items.length"
+  class="absolute z-20 min-w-full transition-all duration-200"
+  [ngClass]="{
+    'opacity-0': !showList,
+    'opacity-100': showList
+  }"
+>
+  <div
+    class="flex flex-col justify-between items-start bg-neutral-600 cursor-pointer mt-1 rounded"
+    (click)="showList = false"
+  >
+    <button
+      *ngFor="let item of items"
+      class="p-2 hover:bg-neutral-500 w-full text-start"
+      (click)="selectedItem = item"
+    >
+      {{ item.label }}
+    </button>
+  </div>
+</div>
