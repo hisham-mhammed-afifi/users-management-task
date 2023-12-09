@@ -9,7 +9,10 @@
         <span>Full Name</span>
       </th>
       <th class="table-cell p-2">
-        <button class="focus:text-orange-400 flex items-cen">
+        <button
+          class="focus:text-orange-400 flex items-cen"
+          (click)="sort_column.emit('email')"
+        >
           <span>Email Address</span>
           <app-icon
             class="pt-[5px] pl-2"
@@ -19,7 +22,10 @@
         </button>
       </th>
       <th class="table-cell p-2">
-        <button class="focus:text-orange-400 flex items-cen">
+        <button
+          class="focus:text-orange-400 flex items-cen"
+          (click)="sort_column.emit('address')"
+        >
           <span>Location</span>
           <app-icon
             class="pt-[5px] pl-2"
@@ -29,7 +35,10 @@
         </button>
       </th>
       <th class="table-cell p-2">
-        <button class="focus:text-orange-400 flex items-cen">
+        <button
+          class="focus:text-orange-400 flex items-cen"
+          (click)="sort_column.emit('joined')"
+        >
           <span>Joined</span>
           <app-icon
             class="pt-[5px] pl-2"
@@ -39,7 +48,10 @@
         </button>
       </th>
       <th class="table-cell p-2">
-        <button class="focus:text-orange-400 flex items-cen">
+        <button
+          class="focus:text-orange-400 flex items-cen"
+          (click)="sort_column.emit('role')"
+        >
           <span>Permissions</span>
           <app-icon
             class="pt-[5px] pl-2"
@@ -62,15 +74,17 @@
       <td class="table-cell p-2">
         <app-checkbox></app-checkbox>
       </td>
-      <td class="table-cell p-2 relative">
-        <img [src]="user?.image" [alt]="user?.name" />
-        <span
-          class="w-3 h-3 rounded-full absolute right-3 bottom-1"
-          [ngClass]="{
-            'bg-green-500': user?.isActive,
-            'bg-red-500': !user?.isActive
-          }"
-        ></span>
+      <td class="table-cell p-2">
+        <div class="w-[50px] relative h-full">
+          <img [src]="user?.image" [alt]="user?.name" />
+          <span
+            class="w-3 h-3 rounded-full absolute right-3 bottom-0"
+            [ngClass]="{
+              'bg-green-500': user?.isActive,
+              'bg-red-500': !user?.isActive
+            }"
+          ></span>
+        </div>
       </td>
       <td class="table-cell p-2">{{ user?.name }}</td>
       <td class="table-cell p-2">{{ user?.email }}</td>
