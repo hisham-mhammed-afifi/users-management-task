@@ -32,12 +32,15 @@
       (current_page)="pageChange($event)"
     ></app-paginator>
 
-    <app-dropdown
-      *ngIf="usersLength > 10"
-      label="Show"
-      [items]="usersPerPageList"
-      position="bottom-9"
-      (selected_item)="perPageChange($event.value)"
-    ></app-dropdown>
+    <div class="flex items-center">
+      <p class="text-xl mr-3">Show:</p>
+      <app-dropdown
+        *ngIf="usersLength > 10"
+        dataType="row"
+        [items]="usersPerPageList"
+        position="bottom-9"
+        (selected_item)="perPageChange($event.value)"
+      ></app-dropdown>
+    </div>
   </section>
 </main>

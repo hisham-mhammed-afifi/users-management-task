@@ -1,1 +1,8 @@
-<app-icon icon="square"></app-icon>
+<span class="text-orange-500" [ngClass]="{ 'text-orange-500': checked }">
+  <app-icon
+    class="cursor-pointer text-orange-500"
+    [icon]="checked ? 'check-square-fill' : 'square'"
+    [size]="18"
+    (click)="checked = !checked"
+  ></app-icon>
+</span>
