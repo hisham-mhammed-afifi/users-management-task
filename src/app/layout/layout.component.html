@@ -1,4 +1,13 @@
 <main class="md:container p-3 mx-auto">
+  <section class="flex justify-end space-x-3 mt-3">
+    <button
+      class="py-1 px-4 bg-orange-400 hover:bg-orange-500 rounded"
+      (click)="logout()"
+    >
+      Logout
+    </button>
+  </section>
+
   <h3 class="text-xl mt-5 mb-3 font-semibold">Users Management</h3>
   <app-top-bar
     (search_input)="searchUsers($event)"
@@ -7,14 +16,14 @@
     (export_pdf)="exportPDF()"
   ></app-top-bar>
 
-  <div class="overflow-x-auto max-w-full mt-5">
+  <section class="overflow-x-auto max-w-full mt-5">
     <app-users-table
       [users]="users$ | async"
       (sort_column)="sortUsers($event)"
     ></app-users-table>
-  </div>
+  </section>
 
-  <div class="flex justify-between bg-neutral-600 p-5">
+  <section class="flex justify-between bg-neutral-600 p-5">
     <app-paginator
       *ngIf="usersLength"
       [itemsLength]="usersLength"
@@ -30,5 +39,5 @@
       position="bottom-9"
       (selected_item)="perPageChange($event.value)"
     ></app-dropdown>
-  </div>
+  </section>
 </main>
