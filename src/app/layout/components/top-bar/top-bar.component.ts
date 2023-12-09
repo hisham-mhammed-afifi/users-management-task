@@ -27,7 +27,7 @@ export class TopBarComponent implements OnInit {
   @Output() search_input = new EventEmitter<string>();
   @Output() joined_filter = new EventEmitter<DateFilter>();
   @Output() permissions_filter = new EventEmitter<UserRole>();
-  @Output() export_pdf = new EventEmitter<string>();
+  @Output() export_pdf = new EventEmitter<void>();
 
   constructor() {}
 
