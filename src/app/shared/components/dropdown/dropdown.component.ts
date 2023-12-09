@@ -15,6 +15,7 @@ export class DropdownComponent implements OnInit {
   selectedItem: MenuItem = <MenuItem>{};
 
   @Input() label = '';
+  @Input() dataType = '';
   @Input() items: MenuItem[] = [];
   @Input() position = '';
 
