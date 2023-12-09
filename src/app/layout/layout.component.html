@@ -2,5 +2,17 @@
   <h3 class="text-xl mt-5 mb-3 font-semibold">Users Management</h3>
   <app-top-bar></app-top-bar>
 
-  <app-users-table [users]="users$ | async"></app-users-table>
+  <div class="overflow-x-auto max-w-full mt-5">
+    <app-users-table [users]="users$ | async"></app-users-table>
+  </div>
+
+  <div class="flex justify-between bg-neutral-600 p-5">
+    <app-paginator
+      *ngIf="usersLength"
+      [itemsLength]="usersLength"
+      (current_page)="pageChange($event)"
+    ></app-paginator>
+
+    <app-dropdown label="Show" [items]="usersPerPageList" position="bottom-9" (selected_item)="perPageChange($event.value)"></app-dropdown>
+  </div>
 </main>
