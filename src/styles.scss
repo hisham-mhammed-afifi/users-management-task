@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .gray-border {
+    @apply border-neutral-400 border-opacity-30 bg-neutral-500;
+  }
+}
