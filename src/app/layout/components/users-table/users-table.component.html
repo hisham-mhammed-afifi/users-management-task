@@ -56,7 +56,7 @@
 
   <tbody>
     <tr
-      *ngFor="let i of [1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5]"
+      *ngFor="let user of users"
       class="table-row items-center bg-neutral-500 py-1 px-3 w-full"
     >
       <td class="table-cell p-2">
@@ -69,11 +69,13 @@
           [ngClass]="{ 'bg-green-500': false, 'bg-red-500': true }"
         ></span>
       </td>
-      <td class="table-cell p-2">Hesham mohamed</td>
-      <td class="table-cell p-2">hesham@gmail.com</td>
-      <td class="table-cell p-2">Cairo, EG</td>
-      <td class="table-cell p-2">Jun, 1, 2020</td>
-      <td class="table-cell p-2">Admin</td>
+      <td class="table-cell p-2">{{user?.name}}</td>
+      <td class="table-cell p-2">{{user?.email}}</td>
+      <td class="table-cell p-2">{{user?.address}}</td>
+      <td class="table-cell p-2">{{user?.joined | date: "longDate"}}</td>
+      <td class="table-cell p-2">
+        <span>{{UserRole[user.role]}}</span>
+      </td>
       <td class="table-cell p-2">
         <app-icon icon="three-dots"></app-icon>
       </td>
