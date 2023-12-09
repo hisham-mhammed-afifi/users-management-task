@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { CONSTANTS } from 'src/environments/environment';
 
 @Component({
   selector: 'app-paginator',
@@ -6,17 +7,17 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./paginator.component.scss'],
 })
 export class PaginatorComponent implements OnInit {
-  @Input() itemsLength: number = 0;
-  @Input() itemsPerPage: number = 10;
-  @Output() current_page = new EventEmitter<number>();
+  @Input() itemsLength: number = 100;
+  @Input() itemsPerPage: number = CONSTANTS.UsersPerPage;
+  @Output() current_page = new EventEmitter<string>();
 
   currentPage = 1;
-  pagesCount = Math.ceil(this.itemsLength / this.itemsPerPage);
 
   get pageNumbers(): number[] {
     if (!this.itemsLength) return [];
-    if (this.pagesCount <= 5) {
-      return Array(this.pagesCount)
+    const pagesCount = Math.ceil(this.itemsLength / this.itemsPerPage);
+    if (pagesCount <= 5) {
+      return Array(pagesCount)
         .fill(0)
         .map((_, i) => i + 1);
     }
@@ -24,21 +25,21 @@ export class PaginatorComponent implements OnInit {
     let start = this.currentPage - 1;
     if (start <= 0) {
       start = 1;
-    } else if (start + 3 >= this.pagesCount) {
-      start = this.pagesCount - 4;
+    } else if (start + 3 >= pagesCount) {
+      start = pagesCount - 4;
     }
 
     let shownPages: any[] = [start];
-    for (let i = 0; i <= 3; i++) {
-      if (start + i < this.pagesCount) {
+    for (let i = 1; i <= 3; i++) {
+      if (start + i < pagesCount) {
         shownPages.push(start + i);
       }
     }
 
-    if (this.currentPage < this.pagesCount - 3) {
-      shownPages.push('...', this.pagesCount);
+    if (this.currentPage < pagesCount - 3) {
+      shownPages.push('...', pagesCount);
     } else {
-      shownPages.push(this.pagesCount);
+      shownPages.push(pagesCount);
     }
 
     return shownPages;
@@ -48,16 +49,23 @@ export class PaginatorComponent implements OnInit {
     if (page === this.currentPage) return;
     this.currentPage = page;
 
-    this.current_page.emit(this.currentPage);
+    this.current_page.emit(this.currentPage.toString());
+  }
+
+  constructor() {}
+
+  ngOnInit(): void {
+    console.log(this.itemsLength);
   }
 
   next() {
     if (!this.itemsLength) return;
-    if (this.currentPage < this.pagesCount) {
+    const pagesCount = Math.ceil(this.itemsLength / this.itemsPerPage);
+    if (this.currentPage < pagesCount) {
       this.currentPage++;
     }
 
-    this.current_page.emit(this.currentPage);
+    this.current_page.emit(this.currentPage.toString());
   }
 
   prev() {
@@ -66,10 +74,6 @@ export class PaginatorComponent implements OnInit {
       this.currentPage--;
     }
 
-    this.current_page.emit(this.currentPage);
+    this.current_page.emit(this.currentPage.toString());
   }
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

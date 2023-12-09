@@ -11,7 +11,7 @@ export interface User {
 
 export enum UserRole {
   Admin,
-  Contributer,
+  Contributor,
   Viewer,
   Editor,
 }
