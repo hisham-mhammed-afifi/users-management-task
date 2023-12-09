@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './models/User';
-import { UsersService } from './services/users.service';
+import { SortType, UsersService } from './services/users.service';
 import { Observable } from 'rxjs';
 import { MenuItem } from '../shared/components/dropdown/dropdown.component';
 import { CONSTANTS } from 'src/environments/environment';
@@ -20,6 +20,8 @@ export class LayoutComponent implements OnInit {
     _limit: CONSTANTS.UsersPerPage.toString(),
     q: '',
     _page: '1',
+    _sort: '',
+    _order: SortType.ASC,
     joined_gte: '',
     joined_lte: new Date().toISOString(),
     role: UserRole.All + '',
@@ -89,6 +91,21 @@ export class LayoutComponent implements OnInit {
     }
     this.users$ = this.usersSrv.getUsers({ ...this.getUsersParams, role });
     this.setUserLength();
+  }
+
+  sortUsers(prop: string) {
+    if (this.getUsersParams._sort === prop) {
+      if (this.getUsersParams._order === SortType.ASC) {
+        this.getUsersParams._order = SortType.DESC;
+      } else {
+        this.getUsersParams._order = SortType.ASC;
+      }
+    }
+    this.getUsersParams._sort = prop;
+    this.users$ = this.usersSrv.getUsers({
+      ...this.getUsersParams,
+      _sort: prop,
+    });
   }
 
   exportPDF() {}

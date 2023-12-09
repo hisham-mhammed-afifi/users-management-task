@@ -6,6 +6,11 @@ import { CONSTANTS } from 'src/environments/environment';
 import { User } from '../models/User';
 import { UserRole } from '../models/UserRole.enum';
 
+export enum SortType {
+  ASC = 'asc',
+  DESC = 'desc',
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -19,6 +24,8 @@ export class UsersService {
       q: '',
       _page: '1',
       _limit: CONSTANTS.UsersPerPage.toString(),
+      _sort: '',
+      _order: SortType.ASC,
       joined_gte: '',
       role: UserRole.All + '',
     }
