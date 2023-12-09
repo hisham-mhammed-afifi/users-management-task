@@ -4,6 +4,8 @@ import { UsersService } from './services/users.service';
 import { Observable } from 'rxjs';
 import { MenuItem } from '../shared/components/dropdown/dropdown.component';
 import { CONSTANTS } from 'src/environments/environment';
+import { DateFilter } from './models/DateFilter.enum';
+import { UserRole } from './models/UserRole.enum';
 
 @Component({
   selector: 'app-layout',
@@ -11,10 +13,17 @@ import { CONSTANTS } from 'src/environments/environment';
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
-  users$!: Observable<User[]>;
+  users$!: Observable<{ data: User[]; total: string | null }>;
   usersLength = 0;
-  usersPerPage = CONSTANTS.UsersPerPage;
-  currentPage = 1;
+
+  getUsersParams: any = {
+    _limit: CONSTANTS.UsersPerPage.toString(),
+    q: '',
+    _page: '1',
+    joined_gte: '',
+    joined_lte: new Date().toISOString(),
+    role: UserRole.All + '',
+  };
 
   usersPerPageList: MenuItem[] = [
     { label: '10', value: 10 },
@@ -25,22 +34,83 @@ export class LayoutComponent implements OnInit {
   constructor(private usersSrv: UsersService) {}
 
   ngOnInit(): void {
-    this.users$ = this.usersSrv.getUsers(
-      this.currentPage.toString(),
-      this.usersPerPage.toString()
-    );
-    this.usersSrv.UsersLength.subscribe((l) => {
-      this.usersLength = l;
-      console.log(l);
+    this.users$ = this.usersSrv.getUsers({ ...this.getUsersParams });
+    this.setUserLength();
+  }
+
+  setUserLength() {
+    this.users$.subscribe((res) => {
+      if (res && res.total) {
+        this.usersLength = +res.total;
+      }
     });
   }
 
   pageChange(page: string) {
-    this.users$ = this.usersSrv.getUsers(page, this.usersPerPage.toString());
+    this.getUsersParams._page = page;
+    this.users$ = this.usersSrv.getUsers({
+      ...this.getUsersParams,
+      _page: page,
+    });
+    this.setUserLength();
   }
 
   perPageChange(limit: string) {
-    this.usersPerPage = +limit;
-    this.users$ = this.usersSrv.getUsers('1', limit);
+    this.getUsersParams._limit = limit;
+    this.users$ = this.usersSrv.getUsers({
+      ...this.getUsersParams,
+      _limit: limit,
+    });
+    this.setUserLength();
+  }
+
+  searchUsers(term: string) {
+    this.getUsersParams._page = '1';
+    this.getUsersParams.q = term;
+    this.users$ = this.usersSrv.getUsers({ ...this.getUsersParams, q: term });
+    this.setUserLength();
+  }
+
+  filterByJoined(filter: DateFilter) {
+    this.getUsersParams._page = '1';
+    this.getUsersParams.joined_gte = this.getStartDate(filter).toISOString();
+    this.users$ = this.usersSrv.getUsers({
+      ...this.getUsersParams,
+      joined_gte: this.getStartDate(filter).toISOString(),
+    });
+    this.setUserLength();
+  }
+
+  filterByPermissions(role: number) {
+    this.getUsersParams._page = '1';
+    this.getUsersParams.role = role;
+    if (role === UserRole.All) {
+      this.getUsersParams.role = '';
+    }
+    this.users$ = this.usersSrv.getUsers({ ...this.getUsersParams, role });
+    this.setUserLength();
+  }
+
+  exportPDF() {}
+
+  getStartDate(filter: DateFilter): Date {
+    let now = new Date();
+    let start = new Date(0);
+    switch (filter) {
+      case DateFilter.ThisWeek:
+        start = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        break;
+      case DateFilter.ThisMonth:
+        start = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+        break;
+      case DateFilter.ThisYear:
+        start = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
+        break;
+      default:
+        start = new Date(0);
+        break;
+    }
+
+    return start;
   }
 }
