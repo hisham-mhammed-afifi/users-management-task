@@ -6,6 +6,7 @@ import { MenuItem } from '../shared/components/dropdown/dropdown.component';
 import { CONSTANTS } from 'src/environments/environment';
 import { DateFilter } from './models/DateFilter.enum';
 import { UserRole } from './models/UserRole.enum';
+import { UtilsService } from '../shared/services/utils.service';
 
 @Component({
   selector: 'app-layout',
@@ -33,7 +34,7 @@ export class LayoutComponent implements OnInit {
     { label: '25', value: 25 },
   ];
 
-  constructor(private usersSrv: UsersService) {}
+  constructor(private usersSrv: UsersService, private utilsSrv: UtilsService) {}
 
   ngOnInit(): void {
     this.users$ = this.usersSrv.getUsers({ ...this.getUsersParams });
@@ -108,7 +109,11 @@ export class LayoutComponent implements OnInit {
     });
   }
 
-  exportPDF() {}
+  exportPDF() {
+    const table = document.getElementById('usersData');
+    if (!table) return;
+    this.utilsSrv.exportPDF(table);
+  }
 
   getStartDate(filter: DateFilter): Date {
     let now = new Date();
