@@ -22,29 +22,17 @@ export class UsersService {
       joined_gte: '',
       role: UserRole.All + '',
     }
-  ): Observable<User[]> {
-    if (params.role === UserRole.All + '') delete params.role;
-    return this._http.get<User[]>(this.baseURL, {
-      params: { ...params },
-    });
-  }
-
-  getUsersLength(
-    params: any = {
-      q: '',
-      _page: '1',
-      _limit: CONSTANTS.UsersPerPage.toString(),
-      joined_gte: '',
-      role: UserRole.All + '',
-    }
-  ): Observable<number> {
-    delete params._page;
-    delete params._limit;
+  ): Observable<{ data: User[]; total: string | null }> {
     if (params.role === UserRole.All + '') delete params.role;
     return this._http
-      .get<User[]>(this.baseURL, {
+      .get<any>(this.baseURL, {
         params: { ...params },
+        observe: 'response',
       })
-      .pipe(map((users) => users.length));
+      .pipe(
+        map((res) => {
+          return { data: res.body, total: res.headers.get('X-Total-Count') };
+        })
+      );
   }
 }

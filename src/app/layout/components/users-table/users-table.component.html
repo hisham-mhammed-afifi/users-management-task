@@ -54,9 +54,9 @@
     </tr>
   </thead>
 
-  <tbody *ngIf="users?.length; else noUsers">
+  <tbody *ngIf="users?.data?.length; else noUsers">
     <tr
-      *ngFor="let user of users"
+      *ngFor="let user of users?.data"
       class="table-row items-center bg-neutral-600 py-1 px-3 w-full"
     >
       <td class="table-cell p-2">

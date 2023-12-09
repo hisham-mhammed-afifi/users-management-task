@@ -7,7 +7,7 @@ import { CONSTANTS } from 'src/environments/environment';
   styleUrls: ['./paginator.component.scss'],
 })
 export class PaginatorComponent implements OnInit {
-  @Input() itemsLength: number = 100;
+  @Input() itemsLength: number = 0;
   @Input() itemsPerPage: number = CONSTANTS.UsersPerPage;
   @Input() currentPage = 1;
   @Output() current_page = new EventEmitter<string>();
@@ -53,9 +53,7 @@ export class PaginatorComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.itemsLength);
-  }
+  ngOnInit(): void {}
 
   next() {
     if (!this.itemsLength) return;

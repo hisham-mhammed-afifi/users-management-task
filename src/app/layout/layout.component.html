@@ -16,6 +16,7 @@
       *ngIf="usersLength"
       [itemsLength]="usersLength"
       [currentPage]="+getUsersParams._page"
+      [itemsPerPage]="getUsersParams._limit"
       (current_page)="pageChange($event)"
     ></app-paginator>
 

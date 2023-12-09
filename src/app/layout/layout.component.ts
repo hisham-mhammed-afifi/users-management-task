@@ -13,7 +13,7 @@ import { UserRole } from './models/UserRole.enum';
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
-  users$!: Observable<User[]>;
+  users$!: Observable<{ data: User[]; total: string | null }>;
   usersLength = 0;
 
   getUsersParams: any = {
@@ -39,8 +39,10 @@ export class LayoutComponent implements OnInit {
   }
 
   setUserLength() {
-    this.usersSrv.getUsersLength({ ...this.getUsersParams }).subscribe((l) => {
-      this.usersLength = l;
+    this.users$.subscribe((res) => {
+      if (res && res.total) {
+        this.usersLength = +res.total;
+      }
     });
   }
 
@@ -50,6 +52,7 @@ export class LayoutComponent implements OnInit {
       ...this.getUsersParams,
       _page: page,
     });
+    this.setUserLength();
   }
 
   perPageChange(limit: string) {
@@ -58,6 +61,7 @@ export class LayoutComponent implements OnInit {
       ...this.getUsersParams,
       _limit: limit,
     });
+    this.setUserLength();
   }
 
   searchUsers(term: string) {
