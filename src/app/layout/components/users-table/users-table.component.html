@@ -1,1 +1,82 @@
-<p>users-table works!</p>
+<table class="min-w-[1024px] w-full">
+  <thead>
+    <tr class="table-row bg-neutral-600 py-1 px-3 w-full">
+      <th class="table-cell p-2">
+        <app-checkbox></app-checkbox>
+      </th>
+      <th class="table-cell p-2"></th>
+      <th class="table-cell p-2 text-start">
+        <span>Full Name</span>
+      </th>
+      <th class="table-cell p-2">
+        <button class="focus:text-orange-400 flex items-cen">
+          <span>Email Address</span>
+          <app-icon
+            class="pt-[5px] pl-2"
+            icon="chevron-expand"
+            color="currentColor"
+          ></app-icon>
+        </button>
+      </th>
+      <th class="table-cell p-2">
+        <button class="focus:text-orange-400 flex items-cen">
+          <span>Location</span>
+          <app-icon
+            class="pt-[5px] pl-2"
+            icon="chevron-expand"
+            color="currentColor"
+          ></app-icon>
+        </button>
+      </th>
+      <th class="table-cell p-2">
+        <button class="focus:text-orange-400 flex items-cen">
+          <span>Joined</span>
+          <app-icon
+            class="pt-[5px] pl-2"
+            icon="chevron-expand"
+            color="currentColor"
+          ></app-icon>
+        </button>
+      </th>
+      <th class="table-cell p-2">
+        <button class="focus:text-orange-400 flex items-cen">
+          <span>Permissions</span>
+          <app-icon
+            class="pt-[5px] pl-2"
+            icon="chevron-expand"
+            color="currentColor"
+          ></app-icon>
+        </button>
+      </th>
+      <th class="table-cell p-2">
+        <app-icon icon="calendar-week"></app-icon>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr
+      *ngFor="let i of [1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5]"
+      class="table-row items-center bg-neutral-500 py-1 px-3 w-full"
+    >
+      <td class="table-cell p-2">
+        <app-checkbox></app-checkbox>
+      </td>
+      <td class="table-cell p-2 relative">
+        <img src="assets/images/profile-1.png" alt="" />
+        <span
+          class="w-3 h-3 rounded-full absolute right-6 bottom-1"
+          [ngClass]="{ 'bg-green-500': false, 'bg-red-500': true }"
+        ></span>
+      </td>
+      <td class="table-cell p-2">Hesham mohamed</td>
+      <td class="table-cell p-2">hesham@gmail.com</td>
+      <td class="table-cell p-2">Cairo, EG</td>
+      <td class="table-cell p-2">Jun, 1, 2020</td>
+      <td class="table-cell p-2">Admin</td>
+      <td class="table-cell p-2">
+        <app-icon icon="three-dots"></app-icon>
+      </td>
+    </tr>
+  </tbody>
+</table>
