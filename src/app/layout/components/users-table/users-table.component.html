@@ -54,7 +54,7 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody *ngIf="users?.length; else noUsers">
     <tr
       *ngFor="let user of users"
       class="table-row items-center bg-neutral-600 py-1 px-3 w-full"
@@ -94,3 +94,9 @@
     </tr>
   </tbody>
 </table>
+
+<ng-template #noUsers>
+  <div class="my-5 mx-auto font-bold text-lg text-neutral-400">
+    <p class="mx-10">No users found.</p>
+  </div>
+</ng-template>

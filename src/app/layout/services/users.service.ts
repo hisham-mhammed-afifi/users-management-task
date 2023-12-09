@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CONSTANTS } from 'src/environments/environment';
 import { User } from '../models/User';
+import { UserRole } from '../models/UserRole.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -14,17 +15,36 @@ export class UsersService {
   constructor(private _http: HttpClient) {}
 
   getUsers(
-    _page = '1',
-    _limit = CONSTANTS.UsersPerPage.toString()
+    params: any = {
+      q: '',
+      _page: '1',
+      _limit: CONSTANTS.UsersPerPage.toString(),
+      joined_gte: '',
+      role: UserRole.All + '',
+    }
   ): Observable<User[]> {
+    if (params.role === UserRole.All + '') delete params.role;
     return this._http.get<User[]>(this.baseURL, {
-      params: { _page, _limit },
+      params: { ...params },
     });
   }
 
-  get UsersLength(): Observable<number> {
+  getUsersLength(
+    params: any = {
+      q: '',
+      _page: '1',
+      _limit: CONSTANTS.UsersPerPage.toString(),
+      joined_gte: '',
+      role: UserRole.All + '',
+    }
+  ): Observable<number> {
+    delete params._page;
+    delete params._limit;
+    if (params.role === UserRole.All + '') delete params.role;
     return this._http
-      .get<User[]>(this.baseURL)
+      .get<User[]>(this.baseURL, {
+        params: { ...params },
+      })
       .pipe(map((users) => users.length));
   }
 }

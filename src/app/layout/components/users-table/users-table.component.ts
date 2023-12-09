@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User, UserRole } from '../../models/User';
+import { User } from '../../models/User';
+import { UserRole } from '../../models/UserRole.enum';
 
 @Component({
   selector: 'app-users-table',

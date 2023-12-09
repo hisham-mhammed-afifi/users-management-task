@@ -9,9 +9,8 @@ import { CONSTANTS } from 'src/environments/environment';
 export class PaginatorComponent implements OnInit {
   @Input() itemsLength: number = 100;
   @Input() itemsPerPage: number = CONSTANTS.UsersPerPage;
+  @Input() currentPage = 1;
   @Output() current_page = new EventEmitter<string>();
-
-  currentPage = 1;
 
   get pageNumbers(): number[] {
     if (!this.itemsLength) return [];

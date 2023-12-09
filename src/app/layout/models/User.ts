@@ -1,3 +1,5 @@
+import { UserRole } from './UserRole.enum';
+
 export interface User {
   id: number;
   image: string;
@@ -7,11 +9,4 @@ export interface User {
   address: string;
   joined: string;
   role: UserRole;
-}
-
-export enum UserRole {
-  Admin,
-  Contributor,
-  Viewer,
-  Editor,
 }

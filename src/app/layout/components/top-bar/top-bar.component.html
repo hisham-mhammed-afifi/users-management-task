@@ -1,12 +1,23 @@
-<section class="flex justify-between items-center gap-2 max-md:flex-wrap">
+<section class="flex justify-between items-center gap-2 max-lg:flex-wrap">
   <input
     class="max-md:w-full font-semibold outline-none py-1 px-2 gray-border border-4 placeholder:text-neutral-100"
     type="search"
     placeholder="Search items ..."
+    (input)="search($event)"
   />
-  <div class="flex justify-between items-center gap-2">
-    <app-dropdown class="flex-grow" label="Permissions"></app-dropdown>
-    <app-dropdown class="flex-grow" label="Joined"></app-dropdown>
+  <div class="flex justify-between items-center gap-2 max-sm:flex-wrap">
+    <app-dropdown
+      class="flex-grow"
+      label="Permissions"
+      [items]="usersPermissionsList"
+      (selected_item)="permissions_filter.emit($event.value)"
+    ></app-dropdown>
+    <app-dropdown
+      class="flex-grow"
+      label="Joined"
+      [items]="usersJoinedList"
+      (selected_item)="joined_filter.emit($event.value)"
+    ></app-dropdown>
     <button class="gray-border border-2 p-2 rounded-md bg-opacity-30">
       <app-icon icon="grid"></app-icon>
     </button>
@@ -14,13 +25,15 @@
 
   <div class="md:flex-grow"></div>
 
-  <div class="flex justify-end items-center gap-x-2 max-sm:w-full">
+  <div class="flex justify-end items-center gap-x-2">
     <button class="gray-border border-2 p-2 rounded-md bg-opacity-30">
       <app-icon icon="three-dots-vertical"></app-icon>
     </button>
 
     <button class="bg-neutral-500 py-2 px-5 rounded z-10">Eport</button>
-    <button class="bg-orange-400 flex items-center py-2 px-4 rounded hover:bg-orange-500 z-10">
+    <button
+      class="bg-orange-400 flex items-center py-2 px-4 rounded hover:bg-orange-500 z-10"
+    >
       <app-icon icon="plus" color="#fff"></app-icon>
       <span class="lg:ml-2">New user</span>
     </button>
