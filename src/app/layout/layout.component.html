@@ -21,6 +21,8 @@
       [users]="usersData"
       (sort_column)="sortUsers($event)"
       (user_delete)="deleteUser($event)"
+      (user_edit)="editUser($event)"
+      (user_add)="addUser($event)"
     ></app-users-table>
   </section>
 

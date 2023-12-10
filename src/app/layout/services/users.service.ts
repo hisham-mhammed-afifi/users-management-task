@@ -50,6 +50,10 @@ export class UsersService {
     return this._http.post<User>(this.baseURL, user);
   }
 
+  updateUser(user: Partial<User>): Observable<any> {
+    return this._http.put<any>(this.baseURL + '/' + user.id, user);
+  }
+
   deleteUser(userId: string): Observable<any> {
     return this._http.delete<any>(this.baseURL + '/' + userId);
   }
