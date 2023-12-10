@@ -103,7 +103,20 @@
         >
       </td>
       <td class="table-cell p-2">
-        <app-icon icon="three-dots"></app-icon>
+        <app-menu>
+          <button
+            class="py-2 px-4 flex items-center hover:bg-neutral-500 w-full text-start"
+          >
+            <app-icon icon="pencil-fill"></app-icon>
+            <span class="mx-3">Edit</span>
+          </button>
+          <button
+            class="py-2 px-4 flex items-center hover:bg-neutral-500 w-full text-start"
+          >
+            <app-icon icon="trash-fill"></app-icon>
+            <span class="mx-3">Delete</span>
+          </button>
+        </app-menu>
       </td>
     </tr>
   </tbody>

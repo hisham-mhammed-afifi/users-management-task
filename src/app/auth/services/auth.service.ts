@@ -13,14 +13,15 @@ export class AuthService {
   }
 
   isAuthenticated(token: string): boolean {
-    return !!token && !!this.decode(token);
+    const { email, password } = this.decode(token);
+    return !!token && !!email && !!password;
   }
 
   private encode(data: any): string {
     return btoa(unescape(encodeURIComponent(JSON.stringify(data))));
   }
 
-  private decode(string: string): Record<string, any> {
+  private decode(string: string): { email: string; password: string } {
     return JSON.parse(decodeURIComponent(escape(decodeURI(atob(string)))));
   }
 
