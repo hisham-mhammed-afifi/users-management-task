@@ -7,9 +7,22 @@ import { UsersTableComponent } from './components/users-table/users-table.compon
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { LayoutComponent } from './layout.component';
 import { SharedModule } from '../shared/shared.module';
+import { UserFormComponent } from './components/user-form/user-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [UsersTableComponent, TopBarComponent, LayoutComponent],
-  imports: [CommonModule, LayoutRoutingModule, SharedModule, HttpClientModule],
+  declarations: [
+    UsersTableComponent,
+    TopBarComponent,
+    LayoutComponent,
+    UserFormComponent,
+  ],
+  imports: [
+    CommonModule,
+    LayoutRoutingModule,
+    SharedModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
 })
 export class LayoutModule {}

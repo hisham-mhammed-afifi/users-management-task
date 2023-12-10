@@ -42,4 +42,8 @@ export class UsersService {
         })
       );
   }
+
+  addUser(user: User): Observable<User> {
+    return this._http.post<User>(this.baseURL, user);
+  }
 }
