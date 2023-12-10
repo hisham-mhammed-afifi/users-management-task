@@ -37,8 +37,6 @@ export class MenuComponent implements OnInit {
     e.stopImmediatePropagation();
     this.showMenu = !this.showMenu;
     if (this.showMenu) {
-      console.log(this.dropdownButton);
-
       const buttonRect =
         this.dropdownButton.nativeElement.getBoundingClientRect();
       this.dropdownMenu.nativeElement.style.top = buttonRect.bottom + 'px';

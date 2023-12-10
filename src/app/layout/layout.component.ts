@@ -8,6 +8,8 @@ import { DateFilter } from './models/DateFilter.enum';
 import { UserRole } from './models/UserRole.enum';
 import { UtilsService } from '../shared/services/utils.service';
 import { Router } from '@angular/router';
+import { ModalService } from '../shared/services/modal.service';
+import { MODAL } from './constants/modals.constants';
 
 @Component({
   selector: 'app-layout',
@@ -37,12 +39,12 @@ export class LayoutComponent implements OnInit {
   constructor(
     private usersSrv: UsersService,
     private utils: UtilsService,
-    private router: Router
+    private router: Router,
+    private modal: ModalService
   ) {}
 
   ngOnInit(): void {
     this.getAllUsers({ ...this.getUsersParams });
-    // this.setUserLength();
   }
 
   parseToNum(text: string): number {
@@ -56,19 +58,25 @@ export class LayoutComponent implements OnInit {
     });
   }
 
+  addUser(user: User) {
+    this.usersSrv.addUser(user).subscribe((user) => {
+      this.getAllUsers({ ...this.getUsersParams });
+      this.modal.toggleModal(MODAL.USER);
+    });
+  }
+
+  editUser(user: Partial<User>) {
+    this.usersSrv.updateUser(user).subscribe((user) => {
+      this.getAllUsers({ ...this.getUsersParams });
+      this.modal.toggleModal(MODAL.USER);
+    });
+  }
+
   deleteUser(userId: string) {
     this.usersSrv.deleteUser(userId).subscribe((res) => {
       this.getAllUsers({ ...this.getUsersParams });
     });
   }
-
-  // setUserLength() {
-  //   this.users$.subscribe((res) => {
-  //     if (res && res.total) {
-  //       this.usersLength = +res.total;
-  //     }
-  //   });
-  // }
 
   pageChange(page: string) {
     this.getUsersParams._page = page;
