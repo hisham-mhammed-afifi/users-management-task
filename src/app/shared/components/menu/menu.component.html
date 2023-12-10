@@ -1,1 +1,25 @@
-<p>menu works!</p>
+<app-icon
+  class="cursor-pointer px-3"
+  icon="three-dots"
+  (click)="$event.stopImmediatePropagation(); showMenu = !showMenu"
+></app-icon>
+
+<div
+  [class]="
+    'absolute right-0 z-20 shadow-lg min-w-full transition-all duration-200 origin-top-right   ' +
+    position
+  "
+  [ngClass]="{
+    'opacity-0 delay-200 scale-0': !showMenu,
+    'opacity-100 delay-200 scale-100': showMenu
+  }"
+>
+  <!-- 'origin-top': !position.includes('bottom'),
+  'origin-bottom': position.includes('bottom') -->
+  <div
+    class="flex flex-col justify-between items-start bg-neutral-600 cursor-pointer mt-1 rounded"
+    (click)="showMenu = false"
+  >
+    <ng-content></ng-content>
+  </div>
+</div>
