@@ -1,0 +1,90 @@
+<app-modal [modalID]="modalID">
+  <div class="flex justify-center items-center my-5">
+    <app-icon
+      class="inline-block mx-3"
+      icon="person-plus-fill"
+      [size]="40"
+    ></app-icon>
+
+    <h3 class="text-lg font-semibold">New User</h3>
+  </div>
+
+  <form [formGroup]="userForm" (ngSubmit)="addUser()">
+    <label for="email">Full name:</label>
+    <input
+      class="bg-transparent autofill:bg-transparent rounded focus:outline-none w-full border focus:right-5 focus:ring-orange-400 ring-offset-2 border-neutral-500 py-2 px-4 mt-1 mb-3"
+      id="email"
+      type="text"
+      formControlName="name"
+    />
+
+    <label for="email">Email address:</label>
+    <input
+      class="bg-transparent autofill:bg-transparent rounded focus:outline-none w-full border focus:right-5 focus:ring-orange-400 ring-offset-2 border-neutral-500 py-2 px-4 mt-1 mb-3"
+      id="email"
+      type="email"
+      formControlName="email"
+    />
+
+    <label for="password">Location:</label>
+    <input
+      class="bg-transparent autofill:bg-transparent rounded focus:outline-none w-full border focus:right-5 focus:ring-orange-400 ring-offset-2 border-neutral-500 py-2 px-4 mt-1 mb-3"
+      id="password"
+      type="text"
+      formControlName="address"
+    />
+
+    <div class="grid grid-cols-2 gap-2">
+      <div class="flex items-center bg-neutral-700 rounded py-1 px-2">
+        <input
+          type="radio"
+          name="role"
+          [value]="UserRole.Admin"
+          id="admin"
+          formControlName="role"
+        />
+        <label class="mx-3" for="admin">Admin</label>
+      </div>
+      <div class="flex items-center bg-neutral-700 rounded py-1 px-2">
+        <input
+          type="radio"
+          name="role"
+          [value]="UserRole.Contributor"
+          id="contributor"
+          formControlName="role"
+        />
+        <label class="mx-3" for="contributor">Contributor</label>
+      </div>
+      <div class="flex items-center bg-neutral-700 rounded py-1 px-2">
+        <input
+          type="radio"
+          name="role"
+          [value]="UserRole.Viewer"
+          id="viewer"
+          formControlName="role"
+        />
+        <label class="mx-3" for="viewer">Viewer</label>
+      </div>
+      <div class="flex items-center bg-neutral-700 rounded py-1 px-2">
+        <input
+          type="radio"
+          name="role"
+          [value]="UserRole.Editor"
+          id="editor"
+          formControlName="role"
+        />
+        <label class="mx-3" for="editor">Editor</label>
+      </div>
+    </div>
+
+    <button
+      class="w-full py-2 bg-orange-500 rounded hover:bg-orange-600 disabled:opacity-80 mt-5 text-center"
+      [disabled]="userForm.invalid || saving"
+    >
+      <span *ngIf="!saving; else loading">Login</span>
+    </button>
+  </form>
+</app-modal>
+<ng-template #loading>
+  <app-icon class="inline-block animate-spin" icon="gear-fill"></app-icon>
+</ng-template>

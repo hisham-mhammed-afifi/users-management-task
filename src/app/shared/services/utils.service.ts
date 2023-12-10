@@ -28,4 +28,8 @@ export class UtilsService {
       PDF.save(fileName + '.pdf');
     });
   }
+
+  randomNumber(): number {
+    return Math.floor(Math.random() * 9) + 1;
+  }
 }

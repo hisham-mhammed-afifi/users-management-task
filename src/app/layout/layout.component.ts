@@ -37,7 +37,7 @@ export class LayoutComponent implements OnInit {
 
   constructor(
     private usersSrv: UsersService,
-    private utilsSrv: UtilsService,
+    private utils: UtilsService,
     private router: Router
   ) {}
 
@@ -117,7 +117,7 @@ export class LayoutComponent implements OnInit {
   exportPDF() {
     const table = document.getElementById('usersData');
     if (!table) return;
-    this.utilsSrv.exportPDF(table);
+    this.utils.exportPDF(table);
   }
 
   getStartDate(filter: DateFilter): Date {
