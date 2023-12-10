@@ -15,8 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
-  users$!: Observable<{ data: User[]; total: string | null }>;
-  usersLength = 0;
+  usersData: { data: User[]; total: string } = { data: [], total: '0' };
 
   getUsersParams: any = {
     _limit: CONSTANTS.UsersPerPage.toString(),
@@ -42,51 +41,64 @@ export class LayoutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.users$ = this.usersSrv.getUsers({ ...this.getUsersParams });
-    this.setUserLength();
+    this.getAllUsers({ ...this.getUsersParams });
+    // this.setUserLength();
   }
 
-  setUserLength() {
-    this.users$.subscribe((res) => {
-      if (res && res.total) {
-        this.usersLength = +res.total;
-      }
+  parseToNum(text: string): number {
+    if (isNaN(+text)) return 0;
+    return Number(text);
+  }
+
+  getAllUsers(params: any) {
+    this.usersSrv.getUsers(params).subscribe((data) => {
+      this.usersData = data;
     });
   }
+
+  deleteUser(userId: string) {
+    this.usersSrv.deleteUser(userId).subscribe((res) => {
+      this.getAllUsers({ ...this.getUsersParams });
+    });
+  }
+
+  // setUserLength() {
+  //   this.users$.subscribe((res) => {
+  //     if (res && res.total) {
+  //       this.usersLength = +res.total;
+  //     }
+  //   });
+  // }
 
   pageChange(page: string) {
     this.getUsersParams._page = page;
-    this.users$ = this.usersSrv.getUsers({
+    this.getAllUsers({
       ...this.getUsersParams,
       _page: page,
     });
-    this.setUserLength();
   }
 
   perPageChange(limit: string) {
     this.getUsersParams._limit = limit;
-    this.users$ = this.usersSrv.getUsers({
+    this.getAllUsers({
       ...this.getUsersParams,
       _limit: limit,
     });
-    this.setUserLength();
   }
 
   searchUsers(term: string) {
     this.getUsersParams._page = '1';
     this.getUsersParams.q = term;
-    this.users$ = this.usersSrv.getUsers({ ...this.getUsersParams, q: term });
-    this.setUserLength();
+    this.getAllUsers({ ...this.getUsersParams, q: term });
   }
 
   filterByJoined(filter: DateFilter) {
     this.getUsersParams._page = '1';
     this.getUsersParams.joined_gte = this.getStartDate(filter).toISOString();
-    this.users$ = this.usersSrv.getUsers({
+    this.getAllUsers({
       ...this.getUsersParams,
       joined_gte: this.getStartDate(filter).toISOString(),
     });
-    this.setUserLength();
   }
 
   filterByPermissions(role: number) {
@@ -95,8 +107,7 @@ export class LayoutComponent implements OnInit {
     if (role === UserRole.All) {
       this.getUsersParams.role = '';
     }
-    this.users$ = this.usersSrv.getUsers({ ...this.getUsersParams, role });
-    this.setUserLength();
+    this.getAllUsers({ ...this.getUsersParams, role });
   }
 
   sortUsers(prop: string) {
@@ -108,7 +119,7 @@ export class LayoutComponent implements OnInit {
       }
     }
     this.getUsersParams._sort = prop;
-    this.users$ = this.usersSrv.getUsers({
+    this.getAllUsers({
       ...this.getUsersParams,
       _sort: prop,
     });

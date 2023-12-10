@@ -112,6 +112,7 @@
           </button>
           <button
             class="py-2 px-4 flex items-center hover:bg-neutral-500 w-full text-start"
+            (click)="user_delete.emit(user?.id + '')"
           >
             <app-icon icon="trash-fill"></app-icon>
             <span class="mx-3">Delete</span>
