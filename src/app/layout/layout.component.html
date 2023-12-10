@@ -18,21 +18,25 @@
 
   <section class="overflow-x-auto max-w-full mt-5">
     <app-users-table
-      [users]="users$ | async"
+      [users]="usersData"
       (sort_column)="sortUsers($event)"
+      (user_delete)="deleteUser($event)"
     ></app-users-table>
   </section>
 
   <section class="flex justify-between bg-neutral-600 p-5">
     <app-paginator
-      *ngIf="usersLength"
-      [itemsLength]="usersLength"
+      *ngIf="usersData.total"
+      [itemsLength]="+usersData.total"
       [currentPage]="+getUsersParams._page"
       [itemsPerPage]="getUsersParams._limit"
       (current_page)="pageChange($event)"
     ></app-paginator>
 
-    <div *ngIf="usersLength > 10" class="flex items-center">
+    <div
+      *ngIf="usersData && parseToNum(usersData.total) > 10"
+      class="flex items-center"
+    >
       <p class="text-xl mr-3">Show:</p>
       <app-dropdown
         dataType="row"

@@ -29,7 +29,7 @@ export class UsersService {
       joined_gte: '',
       role: UserRole.All + '',
     }
-  ): Observable<{ data: User[]; total: string | null }> {
+  ): Observable<{ data: User[]; total: string }> {
     if (params.role === UserRole.All + '') delete params.role;
     return this._http
       .get<any>(this.baseURL, {
@@ -38,12 +38,19 @@ export class UsersService {
       })
       .pipe(
         map((res) => {
-          return { data: res.body, total: res.headers.get('X-Total-Count') };
+          return {
+            data: res.body,
+            total: res.headers.get('X-Total-Count') ?? '0',
+          };
         })
       );
   }
 
   addUser(user: User): Observable<User> {
     return this._http.post<User>(this.baseURL, user);
+  }
+
+  deleteUser(userId: string): Observable<any> {
+    return this._http.delete<any>(this.baseURL + '/' + userId);
   }
 }

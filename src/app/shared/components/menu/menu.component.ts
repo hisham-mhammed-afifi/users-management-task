@@ -5,6 +5,8 @@ import {
   Output,
   Input,
   HostListener,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 
 @Component({
@@ -19,6 +21,9 @@ export class MenuComponent implements OnInit {
 
   @Output() item_changed = new EventEmitter<any>();
 
+  @ViewChild('dropdownButton') dropdownButton!: ElementRef;
+  @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
+
   @HostListener('window:click')
   clickOutside() {
     this.showMenu = false;
@@ -27,4 +32,17 @@ export class MenuComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  toggleDropdown(e: Event) {
+    e.stopImmediatePropagation();
+    this.showMenu = !this.showMenu;
+    if (this.showMenu) {
+      console.log(this.dropdownButton);
+
+      const buttonRect =
+        this.dropdownButton.nativeElement.getBoundingClientRect();
+      this.dropdownMenu.nativeElement.style.top = buttonRect.bottom + 'px';
+      this.dropdownMenu.nativeElement.style.left = buttonRect.left - 70 + 'px';
+    }
+  }
 }
