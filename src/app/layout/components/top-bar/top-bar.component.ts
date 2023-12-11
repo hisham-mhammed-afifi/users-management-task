@@ -1,4 +1,14 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { MenuItem } from 'src/app/shared/components/dropdown/dropdown.component';
 import { ModalService } from 'src/app/shared/services/modal.service';
@@ -11,7 +21,7 @@ import { UserRole } from '../../models/UserRole.enum';
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.scss'],
 })
-export class TopBarComponent implements OnInit {
+export class TopBarComponent implements OnInit, AfterViewInit {
   usersPermissionsList: MenuItem[] = [
     { label: 'All', value: UserRole.All },
     { label: 'Admin', value: UserRole.Admin },
@@ -32,12 +42,26 @@ export class TopBarComponent implements OnInit {
   @Output() permissions_filter = new EventEmitter<UserRole>();
   @Output() export_pdf = new EventEmitter<void>();
 
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+
   constructor(public modal: ModalService, public authSrv: AuthService) {}
 
   ngOnInit(): void {}
 
-  search(e: Event) {
-    this.search_input.emit((e.target as HTMLInputElement).value);
+  ngAfterViewInit(): void {
+    this.searchDebounce(this.searchInput);
+  }
+
+  searchDebounce(element: ElementRef<HTMLInputElement>) {
+    fromEvent(element.nativeElement, 'keyup')
+      .pipe(
+        map((event: any) => event.target.value),
+        debounceTime(500),
+        distinctUntilChanged()
+      )
+      .subscribe((text: string) => {
+        this.search_input.emit(text.toLocaleLowerCase().trim());
+      });
   }
 
   openModal(e: Event) {
