@@ -1,0 +1,16 @@
+.loader-lines > div,
+.loader-blocks > div,
+.loader-squares > div,
+.loader-circles > div {
+}
+
+.loader-lines > div {
+  animation: loading 1s infinite alternate;
+}
+
+@keyframes loading {
+  to {
+    opacity: 0.5;
+    transform: scale(0.99);
+  }
+}

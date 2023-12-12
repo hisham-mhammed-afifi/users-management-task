@@ -1,0 +1,28 @@
+<div class="skeleton-loader">
+  <ng-container [ngSwitch]="type">
+    <div *ngSwitchCase="LoaderType.Line" class="loader-lines">
+      <div
+        class="h-3 my-1 bg-neutral-500 rounded-full"
+        *ngFor="let _ of [].constructor(count)"
+      ></div>
+    </div>
+    <div *ngSwitchCase="LoaderType.Block" class="loader-blocks">
+      <div
+        class="h-7 w-6 my-1 bg-neutral-500 rounded"
+        *ngFor="let _ of [].constructor(count)"
+      ></div>
+    </div>
+    <div *ngSwitchCase="LoaderType.Square" class="loader-squares">
+      <div
+        class="h-5 w-5 my-1 bg-neutral-500"
+        *ngFor="let _ of [].constructor(count)"
+      ></div>
+    </div>
+    <div *ngSwitchCase="LoaderType.Circle" class="loader-circles">
+      <div
+        class="w-10 h-10 bg-neutral-500 rounded-full"
+        *ngFor="let _ of [].constructor(count)"
+      ></div>
+    </div>
+  </ng-container>
+</div>

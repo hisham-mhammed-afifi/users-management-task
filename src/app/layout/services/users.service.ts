@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 import { CONSTANTS } from 'src/environments/environment';
 import { User } from '../models/User';
 import { UserRole } from '../models/UserRole.enum';
@@ -27,10 +27,10 @@ export class UsersService {
       _sort: '',
       _order: SortType.ASC,
       joined_gte: '',
-      role: UserRole.All + '',
+      role: '',
     }
   ): Observable<{ data: User[]; total: string }> {
-    if (params.role === UserRole.All + '') delete params.role;
+    if (params.role === '') delete params.role;
     return this._http
       .get<any>(this.baseURL, {
         params: { ...params },
@@ -42,7 +42,8 @@ export class UsersService {
             data: res.body,
             total: res.headers.get('X-Total-Count') ?? '0',
           };
-        })
+        }),
+        delay(1000)
       );
   }
 

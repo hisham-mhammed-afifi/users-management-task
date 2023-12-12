@@ -23,7 +23,7 @@ import { UserRole } from '../../models/UserRole.enum';
 })
 export class TopBarComponent implements OnInit, AfterViewInit {
   usersPermissionsList: MenuItem[] = [
-    { label: 'All', value: UserRole.All },
+    { label: 'All', value: '' },
     { label: 'Admin', value: UserRole.Admin },
     { label: 'Contributor', value: UserRole.Contributor },
     { label: 'Viewer', value: UserRole.Viewer },
@@ -53,7 +53,7 @@ export class TopBarComponent implements OnInit, AfterViewInit {
   }
 
   searchDebounce(element: ElementRef<HTMLInputElement>) {
-    fromEvent(element.nativeElement, 'keyup')
+    fromEvent(element.nativeElement, 'input')
       .pipe(
         map((event: any) => event.target.value),
         debounceTime(500),
