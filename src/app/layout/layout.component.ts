@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { User } from './models/User';
 import { SortType, UsersService } from './services/users.service';
 import { Observable } from 'rxjs';
@@ -10,6 +10,8 @@ import { UtilsService } from '../shared/services/utils.service';
 import { Router } from '@angular/router';
 import { ModalService } from '../shared/services/modal.service';
 import { MODAL } from './constants/modals.constants';
+import { TranslateService } from '@ngx-translate/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-layout',
@@ -37,11 +39,21 @@ export class LayoutComponent implements OnInit {
   ];
 
   constructor(
+    @Inject(DOCUMENT) private document: Document,
     private usersSrv: UsersService,
     private utils: UtilsService,
     private router: Router,
-    private modal: ModalService
-  ) {}
+    private modal: ModalService,
+    public translate: TranslateService
+  ) {
+    // this.translate.setDefaultLang('en');
+    this.translate.use('en');
+  }
+
+  changeLang(lang: string) {
+    this.translate.use(lang);
+    this.document.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  }
 
   ngOnInit(): void {
     this.getAllUsers({ ...this.getUsersParams });

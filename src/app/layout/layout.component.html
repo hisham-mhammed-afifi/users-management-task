@@ -1,5 +1,15 @@
 <main class="md:container p-3 mx-auto">
-  <section class="flex justify-end space-x-3 mt-3">
+  <section class="flex justify-end items-center space-x-3 mt-3">
+    <app-menu icon="globe-americas" [iconSize]="20">
+      <button class="flex items-center py-1 px-2" (click)="changeLang('ar')">
+        <img class="w-5" src="assets/images/saudi-arabia.png" alt="Arabic" />
+        <span class="mx-3">Arabic</span>
+      </button>
+      <button class="flex items-center py-1 px-2" (click)="changeLang('en')">
+        <img class="w-5" src="assets/images/united-states.png" alt="English" />
+        <span class="mx-3">English</span>
+      </button>
+    </app-menu>
     <button
       class="py-1 px-4 bg-orange-400 hover:bg-orange-500 rounded"
       (click)="logout()"
@@ -7,6 +17,8 @@
       Logout
     </button>
   </section>
+
+  <h1 class="text-3xl text-center">{{ "WELCOME" | translate }}</h1>
 
   <h3 class="text-xl mt-5 mb-3 font-semibold">Users Management</h3>
   <app-top-bar

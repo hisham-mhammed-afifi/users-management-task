@@ -16,6 +16,8 @@ import {
 })
 export class MenuComponent implements OnInit {
   showMenu = false;
+  @Input() icon = 'three-dots';
+  @Input() iconSize = 16;
   @Input() items: any[] = [];
   @Input() position = '';
 
