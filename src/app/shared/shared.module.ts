@@ -9,6 +9,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SkeletonLoaderComponent } from './components/skeleton-loader/skeleton-loader.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -22,6 +23,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     IconComponent,
     MenuComponent,
     ModalComponent,
+    SkeletonLoaderComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +43,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     IconComponent,
     MenuComponent,
     ModalComponent,
+    SkeletonLoaderComponent,
     // modules
     TranslateModule,
   ],

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 export interface MenuItem {
   label: string;
-  value: number;
+  value: number | string;
 }
 
 @Component({

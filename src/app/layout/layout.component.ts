@@ -19,6 +19,7 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
+  lodingUsers = false;
   usersData: { data: User[]; total: string } = { data: [], total: '0' };
 
   getUsersParams: any = {
@@ -29,7 +30,7 @@ export class LayoutComponent implements OnInit {
     _order: SortType.ASC,
     joined_gte: '',
     joined_lte: new Date().toISOString(),
-    role: UserRole.All + '',
+    role: '',
   };
 
   usersPerPageList: MenuItem[] = [
@@ -65,8 +66,10 @@ export class LayoutComponent implements OnInit {
   }
 
   getAllUsers(params: any) {
+    this.lodingUsers = true;
     this.usersSrv.getUsers(params).subscribe((data) => {
       this.usersData = data;
+      this.lodingUsers = false;
     });
   }
 
@@ -124,9 +127,6 @@ export class LayoutComponent implements OnInit {
   filterByPermissions(role: number) {
     this.getUsersParams._page = '1';
     this.getUsersParams.role = role;
-    if (role === UserRole.All) {
-      this.getUsersParams.role = '';
-    }
     this.getAllUsers({ ...this.getUsersParams, role });
   }
 

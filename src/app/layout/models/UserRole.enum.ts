@@ -3,5 +3,4 @@ export enum UserRole {
   Contributor,
   Viewer,
   Editor,
-  All,
 }

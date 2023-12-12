@@ -30,6 +30,7 @@
 
   <section class="overflow-x-auto max-w-full mt-5">
     <app-users-table
+      [loading]="lodingUsers"
       [users]="usersData"
       (sort_column)="sortUsers($event)"
       (user_delete)="deleteUser($event)"
