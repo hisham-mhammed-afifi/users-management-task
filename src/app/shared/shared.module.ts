@@ -6,6 +6,13 @@ import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { IconComponent } from './components/icon/icon.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -16,7 +23,17 @@ import { ModalComponent } from './components/modal/modal.component';
     MenuComponent,
     ModalComponent,
   ],
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
+  ],
   exports: [
     PaginatorComponent,
     DropdownComponent,
@@ -24,6 +41,8 @@ import { ModalComponent } from './components/modal/modal.component';
     IconComponent,
     MenuComponent,
     ModalComponent,
+    // modules
+    TranslateModule,
   ],
 })
 export class SharedModule {}
