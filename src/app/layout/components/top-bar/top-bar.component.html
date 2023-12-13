@@ -3,18 +3,18 @@
     #searchInput
     class="max-md:w-full font-semibold outline-none py-1 px-2 gray-border border-4 placeholder:text-neutral-100"
     type="search"
-    placeholder="Search items ..."
+    [placeholder]="'APP.SEARCH_PLACEHOLDER' | translate"
   />
   <div class="flex justify-between items-center gap-2 max-sm:flex-wrap">
     <app-dropdown
       class="flex-grow"
-      label="Permissions"
+      label="USERSTABLE.HEADER.ROLE"
       [items]="usersPermissionsList"
       (selected_item)="permissions_filter.emit($event.value)"
     ></app-dropdown>
     <app-dropdown
       class="flex-grow"
-      label="Joined"
+      label="USERSTABLE.HEADER.JOINED"
       [items]="usersJoinedList"
       (selected_item)="joined_filter.emit($event.value)"
     ></app-dropdown>
@@ -34,14 +34,16 @@
       class="bg-neutral-500 py-2 px-5 rounded shadow"
       (click)="export_pdf.emit()"
     >
-      Eport
+      {{ "APP.EXPORT" | translate }}
     </button>
     <button
       class="bg-orange-400 flex items-center py-2 px-4 rounded hover:bg-orange-500 z-10"
       (click)="openModal($event)"
     >
       <app-icon icon="plus" color="#fff"></app-icon>
-      <span class="lg:ml-2">New user</span>
+      <span class="lg:ml-2 mb-1">
+        {{ "APP.NEW_USER" | translate }}
+      </span>
     </button>
   </div>
 </section>

@@ -6,16 +6,16 @@
       </th>
       <th class="table-cell p-2"></th>
       <th class="table-cell p-2 text-start">
-        <span>Full Name</span>
+        <span>{{ "USERSTABLE.HEADER.NAME" | translate }}</span>
       </th>
       <th class="table-cell p-2">
         <button
           class="focus:text-orange-400 flex"
           (click)="sort_column.emit('email')"
         >
-          <span>Email Address</span>
+          <span>{{ "USERSTABLE.HEADER.EMAIL" | translate }}</span>
           <app-icon
-            class="pt-[5px] pl-2"
+            class="pt-[5px] ps-2"
             icon="chevron-expand"
             color="currentColor"
           ></app-icon>
@@ -26,9 +26,9 @@
           class="focus:text-orange-400 flex"
           (click)="sort_column.emit('address')"
         >
-          <span>Location</span>
+          <span>{{ "USERSTABLE.HEADER.LOCATION" | translate }}</span>
           <app-icon
-            class="pt-[5px] pl-2"
+            class="pt-[5px] ps-2"
             icon="chevron-expand"
             color="currentColor"
           ></app-icon>
@@ -39,9 +39,9 @@
           class="focus:text-orange-400 flex"
           (click)="sort_column.emit('joined')"
         >
-          <span>Joined</span>
+          <span>{{ "USERSTABLE.HEADER.JOINED" | translate }}</span>
           <app-icon
-            class="pt-[5px] pl-2"
+            class="pt-[5px] ps-2"
             icon="chevron-expand"
             color="currentColor"
           ></app-icon>
@@ -52,9 +52,9 @@
           class="focus:text-orange-400 flex"
           (click)="sort_column.emit('role')"
         >
-          <span>Permissions</span>
+          <span>{{ "USERSTABLE.HEADER.ROLE" | translate }}</span>
           <app-icon
-            class="pt-[5px] pl-2"
+            class="pt-[5px] ps-2"
             icon="chevron-expand"
             color="currentColor"
           ></app-icon>
@@ -99,7 +99,7 @@
               'bg-neutral-800': user.role === UserRole.Viewer,
               'bg-purple-800': user.role === UserRole.Editor
             }"
-            >{{ UserRole[user.role] }}</span
+            >{{ translatedRole(user.role) }}</span
           >
         </td>
         <td class="table-cell p-2">
@@ -109,14 +109,16 @@
               (click)="openUserModal(user)"
             >
               <app-icon icon="pencil-fill"></app-icon>
-              <span class="mx-3">Edit</span>
+              <span class="mx-3">
+                {{ "APP.EDIT" | translate }}
+              </span>
             </button>
             <button
               class="py-2 px-4 flex items-center hover:bg-neutral-500 w-full text-start"
               (click)="user_delete.emit(user?.id + '')"
             >
               <app-icon icon="trash-fill"></app-icon>
-              <span class="mx-3">Delete</span>
+              <span class="mx-3">{{ "APP.DELETE" | translate }}</span>
             </button>
           </app-menu>
         </td>

@@ -1,3 +1,48 @@
 {
-  "WELCOME": "Welcome, there."
+  "WELCOME": "Welcome, there.",
+  "LANG": {
+    "ENGLISH": "English",
+    "ARABIC": "Arabic"
+  },
+  "APP": {
+    "TITLE": "User management",
+    "SEARCH_PLACEHOLDER": "Search items ...",
+    "EXPORT": "Export",
+    "NEW_USER": "New user",
+    "LOGIN": "Login",
+    "LOGOUT": "Logout",
+    "SHOW": "Show",
+    "ROW": "row",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "ALL": "All",
+    "ANYTIME": "Anytime"
+  },
+  "USERSTABLE": {
+    "HEADER": {
+      "NAME": "Full name",
+      "EMAIL": "Email address",
+      "LOCATION": "Location",
+      "JOINED": "Joined",
+      "ROLE": "Permissions"
+    }
+  },
+  "ROLES": {
+    "ADMIN": "Admin",
+    "CONTRIBUTOR": "Contributor",
+    "VIEWER": "Viewer",
+    "EDITOR": "Editor"
+  },
+  "DATE": {
+    "FILTER": {
+      "WEEK": "THis week",
+      "MONTH": "This month",
+      "YEAR": "This year"
+    }
+  },
+  "AUTH": {
+    "LOGIN_TITLE": "Login to account",
+    "ENTER_EMAIL": "Enter your email:",
+    "ENTER_PASS": "Enter your password:"
+  }
 }

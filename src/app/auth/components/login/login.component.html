@@ -1,4 +1,4 @@
-<section class="flex justify-center items-center w-screen h-screen">
+<section class="flex justify-center items-center w-full h-full">
   <div
     class="border border-neutral-500 bg-neutral-600 rounded-md z-20 shadow-lg max-w-[320px] p-5"
   >
@@ -10,10 +10,14 @@
       ></app-icon>
     </div>
 
-    <h3 class="font-semibold text-2xl mb-3">Login to your account</h3>
+    <h3 class="font-semibold text-2xl mb-3">
+      {{ "AUTH.LOGIN_TITLE" | translate }}
+    </h3>
 
     <form [formGroup]="loginForm" (ngSubmit)="login()">
-      <label for="email">Enter your email:</label>
+      <label for="email">
+        {{ "AUTH.ENTER_EMAIL" | translate }}
+      </label>
       <input
         class="bg-transparent autofill:bg-transparent rounded focus:outline-none w-full border focus:right-5 focus:ring-orange-400 ring-offset-2 border-neutral-500 py-2 px-4 mt-1 mb-3"
         id="email"
@@ -21,7 +25,9 @@
         formControlName="email"
       />
 
-      <label for="password">Enter Password:</label>
+      <label for="password">
+        {{ "AUTH.ENTER_PASS" | translate }}
+      </label>
       <input
         class="bg-transparent autofill:bg-transparent rounded focus:outline-none w-full border focus:right-5 focus:ring-orange-400 ring-offset-2 border-neutral-500 py-2 px-4 mt-1 mb-3"
         id="password"
@@ -33,7 +39,9 @@
         class="w-full py-2 bg-orange-500 rounded hover:bg-orange-600 disabled:opacity-80 mt-5 text-center"
         [disabled]="loginForm.invalid || submitting"
       >
-        <span *ngIf="!submitting; else loading">Login</span>
+        <span *ngIf="!submitting; else loading">
+          {{ "APP.LOGIN" | translate }}
+        </span>
       </button>
     </form>
   </div>

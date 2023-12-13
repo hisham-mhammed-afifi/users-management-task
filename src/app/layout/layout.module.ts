@@ -9,6 +9,7 @@ import { LayoutComponent } from './layout.component';
 import { SharedModule } from '../shared/shared.module';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     HttpClientModule,
     ReactiveFormsModule,
+    TranslateModule.forChild(),
   ],
 })
 export class LayoutModule {}

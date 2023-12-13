@@ -1,17 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from './models/User';
 import { SortType, UsersService } from './services/users.service';
-import { Observable } from 'rxjs';
 import { MenuItem } from '../shared/components/dropdown/dropdown.component';
 import { CONSTANTS } from 'src/environments/environment';
 import { DateFilter } from './models/DateFilter.enum';
-import { UserRole } from './models/UserRole.enum';
 import { UtilsService } from '../shared/services/utils.service';
 import { Router } from '@angular/router';
 import { ModalService } from '../shared/services/modal.service';
 import { MODAL } from './constants/modals.constants';
 import { TranslateService } from '@ngx-translate/core';
-import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-layout',
@@ -21,7 +18,6 @@ import { DOCUMENT } from '@angular/common';
 export class LayoutComponent implements OnInit {
   lodingUsers = false;
   usersData: { data: User[]; total: string } = { data: [], total: '0' };
-  currLang = localStorage.getItem('UMLANG') ?? 'en';
 
   getUsersParams: any = {
     _limit: CONSTANTS.UsersPerPage.toString(),
@@ -41,21 +37,12 @@ export class LayoutComponent implements OnInit {
   ];
 
   constructor(
-    @Inject(DOCUMENT) private document: Document,
     private usersSrv: UsersService,
     private utils: UtilsService,
     private router: Router,
     private modal: ModalService,
     public translate: TranslateService
-  ) {
-    this.changeLang(this.currLang);
-  }
-
-  changeLang(lang: string) {
-    this.translate.use(lang);
-    localStorage.setItem('UMLANG', lang);
-    this.document.dir = lang === 'ar' ? 'rtl' : 'ltr';
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getAllUsers({ ...this.getUsersParams });

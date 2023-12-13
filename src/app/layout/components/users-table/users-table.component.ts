@@ -7,6 +7,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { LoaderType } from 'src/app/shared/models/LoadersType.enum';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { MODAL } from '../../constants/modals.constants';
@@ -32,7 +33,10 @@ export class UsersTableComponent implements OnInit, OnChanges {
 
   UserRole = UserRole;
 
-  constructor(private modal: ModalService) {}
+  constructor(
+    private modal: ModalService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -49,5 +53,10 @@ export class UsersTableComponent implements OnInit, OnChanges {
   openUserModal(user: User) {
     this.editedUser = user;
     this.modal.toggleModal(MODAL.USER);
+  }
+
+  translatedRole(role: UserRole): string {
+    const name = UserRole[role].toUpperCase();
+    return this.translate.instant(`ROLES.${name}`);
   }
 }
