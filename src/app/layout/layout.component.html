@@ -1,26 +1,18 @@
 <main class="md:container p-3 mx-auto">
   <section class="flex justify-end items-center space-x-3 mt-3">
-    <app-menu icon="globe-americas" [iconSize]="20">
-      <button class="flex items-center py-1 px-2" (click)="changeLang('ar')">
-        <img class="w-5" src="assets/images/saudi-arabia.png" alt="Arabic" />
-        <span class="mx-3">Arabic</span>
-      </button>
-      <button class="flex items-center py-1 px-2" (click)="changeLang('en')">
-        <img class="w-5" src="assets/images/united-states.png" alt="English" />
-        <span class="mx-3">English</span>
-      </button>
-    </app-menu>
     <button
       class="py-1 px-4 bg-orange-400 hover:bg-orange-500 rounded"
       (click)="logout()"
     >
-      Logout
+      {{ "APP.LOGOUT" | translate }}
     </button>
   </section>
 
   <h1 class="text-3xl text-center">{{ "WELCOME" | translate }}</h1>
 
-  <h3 class="text-xl mt-5 mb-3 font-semibold">Users Management</h3>
+  <h3 class="text-xl mt-5 mb-3 font-semibold">
+    {{ "APP.TITLE" | translate }}
+  </h3>
   <app-top-bar
     (search_input)="searchUsers($event)"
     (joined_filter)="filterByJoined($event)"
@@ -52,9 +44,9 @@
       *ngIf="usersData && parseToNum(usersData.total) > 10"
       class="flex items-center"
     >
-      <p class="text-xl me-3">Show:</p>
+      <p class="text-xl me-3">{{ "APP.SHOW" | translate }}:</p>
       <app-dropdown
-        dataType="row"
+        [dataType]="'APP.ROW' | translate"
         [items]="usersPerPageList"
         position="bottom-9"
         (selected_item)="perPageChange($event.value)"

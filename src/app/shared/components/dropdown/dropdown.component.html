@@ -2,9 +2,9 @@
   class="flex justify-between items-center font-semibold cursor-pointer gray-border border-4 py-1 px-2 w-full"
   (click)="showList = !showList"
 >
-  <p *ngIf="label">{{ label }}</p>
+  <p *ngIf="label">{{ label | translate }}</p>
   <p *ngIf="selectedItem" class="text-orange-400 mx-2">
-    {{ selectedItem.label }}
+    {{ selectedItem.label | translate }}
   </p>
   <p *ngIf="dataType" class="me-2">{{ dataType }}</p>
   <app-icon icon="chevron-down" [size]="12"></app-icon>
@@ -32,7 +32,7 @@
       class="p-2 hover:bg-neutral-500 w-full text-start"
       (click)="itemChange(item)"
     >
-      {{ item.label }}
+      {{ item.label | translate }}
     </button>
   </div>
 </div>

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +9,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'user-management';
+  currLang = localStorage.getItem('UMLANG') ?? 'en';
 
-  items = [{ label: 'All', value: 0 }];
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private translate: TranslateService
+  ) {
+    this.changeLang(this.currLang);
+  }
+
+  changeLang(lang: string) {
+    this.translate.use(lang);
+    localStorage.setItem('UMLANG', lang);
+    this.document.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  }
 }

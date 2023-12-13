@@ -1,1 +1,22 @@
-<router-outlet></router-outlet>
+<main class="flex flex-col justify-between justify-items-center min-h-screen">
+  <section class="flex justify-end">
+    <app-menu class="m-5" icon="globe-americas" [iconSize]="20">
+      <button class="flex items-center py-1 px-2" (click)="changeLang('ar')">
+        <img class="w-5" src="assets/images/saudi-arabia.png" alt="Arabic" />
+        <span class="mx-3">
+          {{ "LANG.ARABIC" | translate }}
+        </span>
+      </button>
+      <button class="flex items-center py-1 px-2" (click)="changeLang('en')">
+        <img class="w-5" src="assets/images/united-states.png" alt="English" />
+        <span class="mx-3">
+          {{ "LANG.ENGLISH" | translate }}
+        </span>
+      </button>
+    </app-menu>
+  </section>
+
+  <section class="flex-grow flex justify-center items-center">
+    <router-outlet></router-outlet>
+  </section>
+</main>

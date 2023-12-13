@@ -23,18 +23,18 @@ import { UserRole } from '../../models/UserRole.enum';
 })
 export class TopBarComponent implements OnInit, AfterViewInit {
   usersPermissionsList: MenuItem[] = [
-    { label: 'All', value: '' },
-    { label: 'Admin', value: UserRole.Admin },
-    { label: 'Contributor', value: UserRole.Contributor },
-    { label: 'Viewer', value: UserRole.Viewer },
-    { label: 'Editor', value: UserRole.Editor },
+    { label: 'APP.ALL', value: '' },
+    { label: 'ROLES.ADMIN', value: UserRole.Admin },
+    { label: 'ROLES.CONTRIBUTOR', value: UserRole.Contributor },
+    { label: 'ROLES.VIEWER', value: UserRole.Viewer },
+    { label: 'ROLES.EDITOR', value: UserRole.Editor },
   ];
 
   usersJoinedList: MenuItem[] = [
-    { label: 'Anytime', value: DateFilter.Anytime },
-    { label: 'This week', value: DateFilter.ThisWeek },
-    { label: 'This month', value: DateFilter.ThisMonth },
-    { label: 'This year', value: DateFilter.ThisYear },
+    { label: 'APP.ANYTIME', value: DateFilter.Anytime },
+    { label: 'DATE.FILTER.WEEK', value: DateFilter.ThisWeek },
+    { label: 'DATE.FILTER.MONTH', value: DateFilter.ThisMonth },
+    { label: 'DATE.FILTER.YEAR', value: DateFilter.ThisYear },
   ];
 
   @Output() search_input = new EventEmitter<string>();
