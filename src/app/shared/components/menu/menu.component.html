@@ -2,21 +2,13 @@
   <app-icon [icon]="icon" [size]="iconSize"></app-icon>
 </button>
 
-<div
-  #dropdownMenu
-  [class]="
-    'fixed right-0 z-20  min-w-full transition-all duration-200 origin-top-left ' +
-    position
-  "
-  [ngClass]="{
-    'opacity-0 delay-200 scale-0': !showMenu,
-    'opacity-100 delay-200 scale-100': showMenu
-  }"
->
-  <div
-    class="flex flex-col shadow-lg justify-between items-start bg-neutral-600 cursor-pointer mt-1 rounded max-w-fit"
-    (click)="showMenu = false"
-  >
-    <ng-content></ng-content>
+<div class="fixed inset-0 z-20 min-w-full" [class.hidden]="!showMenu">
+  <div #dropdownMenu class="absolute">
+    <div
+      class="flex flex-col shadow-lg justify-between items-start bg-neutral-500 cursor-pointer mt-1 rounded max-w-fit"
+      (click)="showMenu = false"
+    >
+      <ng-content></ng-content>
+    </div>
   </div>
 </div>

@@ -21,6 +21,7 @@ import { DOCUMENT } from '@angular/common';
 export class LayoutComponent implements OnInit {
   lodingUsers = false;
   usersData: { data: User[]; total: string } = { data: [], total: '0' };
+  currLang = localStorage.getItem('UMLANG') ?? 'en';
 
   getUsersParams: any = {
     _limit: CONSTANTS.UsersPerPage.toString(),
@@ -47,12 +48,12 @@ export class LayoutComponent implements OnInit {
     private modal: ModalService,
     public translate: TranslateService
   ) {
-    // this.translate.setDefaultLang('en');
-    this.translate.use('en');
+    this.changeLang(this.currLang);
   }
 
   changeLang(lang: string) {
     this.translate.use(lang);
+    localStorage.setItem('UMLANG', lang);
     this.document.dir = lang === 'ar' ? 'rtl' : 'ltr';
   }
 
