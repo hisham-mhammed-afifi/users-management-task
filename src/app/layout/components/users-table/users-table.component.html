@@ -78,7 +78,7 @@
           <div class="w-[50px] relative h-full">
             <img [src]="user?.image" [alt]="user?.name" />
             <span
-              class="w-3 h-3 rounded-full absolute right-3 bottom-0"
+              class="w-3 h-3 rounded-full absolute ltr:right-3 rtl:left-3 bottom-0"
               [ngClass]="{
                 'bg-green-500': user?.isActive,
                 'bg-red-500': !user?.isActive

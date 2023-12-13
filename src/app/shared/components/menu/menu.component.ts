@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -7,6 +8,7 @@ import {
   HostListener,
   ViewChild,
   ElementRef,
+  Inject,
 } from '@angular/core';
 
 @Component({
@@ -19,30 +21,29 @@ export class MenuComponent implements OnInit {
   @Input() icon = 'three-dots';
   @Input() iconSize = 16;
   @Input() items: any[] = [];
-  @Input() position = '';
+  @Input() selector = '';
 
   @Output() item_changed = new EventEmitter<any>();
 
-  @ViewChild('dropdownButton') dropdownButton!: ElementRef;
-  @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
+  @ViewChild('dropdownMenu') dropdownMenu!: ElementRef<HTMLDivElement>;
 
   @HostListener('window:click')
   clickOutside() {
     this.showMenu = false;
   }
 
-  constructor() {}
+  constructor(@Inject(DOCUMENT) private document: Document) {}
 
   ngOnInit(): void {}
 
-  toggleDropdown(e: Event) {
+  toggleDropdown(e: any) {
     e.stopImmediatePropagation();
     this.showMenu = !this.showMenu;
     if (this.showMenu) {
-      const buttonRect =
-        this.dropdownButton.nativeElement.getBoundingClientRect();
-      this.dropdownMenu.nativeElement.style.top = buttonRect.bottom + 'px';
-      this.dropdownMenu.nativeElement.style.left = buttonRect.left - 70 + 'px';
+      const ltr = this.document.dir === 'ltr';
+      let left = ltr ? e.clientX - 110 : e.clientX;
+      this.dropdownMenu.nativeElement.style.top = e.clientY + 15 + 'px';
+      this.dropdownMenu.nativeElement.style.left = left + 'px';
     }
   }
 }

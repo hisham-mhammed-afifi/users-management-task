@@ -2,7 +2,11 @@
   *ngIf="pageNumbers.length > 1"
   class="flex items-center justify-around min-w-[320px] bg-transparent"
 >
-  <button class="rounded-full bg-neutral-700 w-10 h-10 p-3" (click)="prev()">
+  <button
+    class="rounded-full bg-neutral-700 w-10 h-10 p-3 disabled:opacity-50 rtl:rotate-180"
+    [disabled]="currentPage <= 1"
+    (click)="prev()"
+  >
     <app-icon icon="chevron-left" [size]="14"></app-icon>
   </button>
   <button
@@ -13,7 +17,11 @@
   >
     {{ i }}
   </button>
-  <button class="rounded-full bg-neutral-700 w-10 h-10 p-3" (click)="next()">
+  <button
+    class="rounded-full bg-neutral-700 w-10 h-10 p-3 disabled:opacity-50 rtl:rotate-180"
+    [disabled]="currentPage >= pagesCount"
+    (click)="next()"
+  >
     <app-icon icon="chevron-right" [size]="14"></app-icon>
   </button>
 </div>

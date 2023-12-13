@@ -1001,5 +1001,8 @@
       "role": 3
     }
   ],
-  "profile": { "email": "hesham@gmail.com", "password": "12345" }
+  "profile": {
+    "email": "hesham@gmail.com",
+    "password": "12345"
+  }
 }
