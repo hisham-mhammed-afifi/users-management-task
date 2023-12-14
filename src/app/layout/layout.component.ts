@@ -18,6 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class LayoutComponent implements OnInit {
   lodingUsers = false;
   usersData: { data: User[]; total: string } = { data: [], total: '0' };
+  editedUser!: User;
 
   getUsersParams: any = {
     _limit: CONSTANTS.UsersPerPage.toString(),

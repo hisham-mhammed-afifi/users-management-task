@@ -26,12 +26,11 @@
       [users]="usersData"
       (sort_column)="sortUsers($event)"
       (user_delete)="deleteUser($event)"
-      (user_edit)="editUser($event)"
-      (user_add)="addUser($event)"
+      (edited_user)="editedUser = $event"
     ></app-users-table>
   </section>
 
-  <section class="flex justify-between bg-neutral-600 p-5">
+  <section class="flex flex-wrap justify-between bg-neutral-600 py-3 md:px-5">
     <app-paginator
       *ngIf="usersData.total"
       [itemsLength]="+usersData.total"
@@ -54,3 +53,9 @@
     </div>
   </section>
 </main>
+
+<app-user-form
+  [user]="editedUser"
+  (add_user)="addUser($event)"
+  (edit_user)="editUser($event)"
+></app-user-form>

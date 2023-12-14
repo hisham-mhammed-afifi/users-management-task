@@ -21,15 +21,13 @@ import { UserRole } from '../../models/UserRole.enum';
 })
 export class UsersTableComponent implements OnInit, OnChanges {
   LoaderType = LoaderType;
-  editedUser!: User;
   usersCount = 0;
 
   @Input() loading = false;
   @Input() users: { data: User[]; total: string } = { data: [], total: '0' };
   @Output() sort_column = new EventEmitter<string>();
   @Output() user_delete = new EventEmitter<string>();
-  @Output() user_edit = new EventEmitter<Partial<User>>();
-  @Output() user_add = new EventEmitter<User>();
+  @Output() edited_user = new EventEmitter<User>();
 
   UserRole = UserRole;
 
@@ -51,7 +49,7 @@ export class UsersTableComponent implements OnInit, OnChanges {
   }
 
   openUserModal(user: User) {
-    this.editedUser = user;
+    this.edited_user.emit(user);
     this.modal.toggleModal(MODAL.USER);
   }
 

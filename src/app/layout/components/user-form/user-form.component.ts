@@ -13,7 +13,6 @@ import { UtilsService } from 'src/app/shared/services/utils.service';
 import { MODAL } from '../../constants/modals.constants';
 import { User } from '../../models/User';
 import { UserRole } from '../../models/UserRole.enum';
-import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-user-form',
@@ -24,7 +23,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   modalID = MODAL.USER;
   UserRole = UserRole;
 
-  @Input() user!: User;
+  @Input() user!: User | null;
 
   @Output() add_user = new EventEmitter<User>();
   @Output() edit_user = new EventEmitter<Partial<User>>();
@@ -43,25 +42,16 @@ export class UserFormComponent implements OnInit, OnChanges {
 
   saving = false;
 
-  constructor(
-    public modal: ModalService,
-    private utils: UtilsService,
-    private userSrv: UsersService
-  ) {}
+  constructor(public modal: ModalService, private utils: UtilsService) {}
 
   ngOnInit(): void {
     this.modal.register(MODAL.USER);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['user'].currentValue !== changes['user'].previousValue) {
-      this.setEditedUser(this.user);
+    if (this.user && changes['user'].currentValue) {
+      this.userForm.patchValue({ ...this.user });
     }
-  }
-
-  setEditedUser(user: User) {
-    if (!user) return;
-    this.userForm.patchValue({ ...user });
   }
 
   onSubmit() {
@@ -70,6 +60,11 @@ export class UserFormComponent implements OnInit, OnChanges {
     } else {
       this.editUser();
     }
+  }
+
+  resetData() {
+    this.user = null;
+    this.userForm.reset();
   }
 
   addUser() {
@@ -102,6 +97,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   ngOnDestroy() {
+    this.user = null;
     this.modal.unregister(MODAL.USER);
   }
 }
