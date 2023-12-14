@@ -18,14 +18,16 @@
     "ALL": "All",
     "ANYTIME": "Anytime"
   },
-  "USERSTABLE": {
-    "HEADER": {
+  "USER": {
+    "PROP": {
       "NAME": "Full name",
       "EMAIL": "Email address",
       "LOCATION": "Location",
       "JOINED": "Joined",
       "ROLE": "Permissions"
-    }
+    },
+    "EDIT": "Edit user",
+    "ADD": "Add new user"
   },
   "ROLES": {
     "ADMIN": "Admin",

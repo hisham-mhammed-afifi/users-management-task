@@ -8,13 +8,13 @@
   <div class="flex justify-between items-center gap-2 max-sm:flex-wrap">
     <app-dropdown
       class="flex-grow"
-      label="USERSTABLE.HEADER.ROLE"
+      label="USER.PROP.ROLE"
       [items]="usersPermissionsList"
       (selected_item)="permissions_filter.emit($event.value)"
     ></app-dropdown>
     <app-dropdown
       class="flex-grow"
-      label="USERSTABLE.HEADER.JOINED"
+      label="USER.PROP.JOINED"
       [items]="usersJoinedList"
       (selected_item)="joined_filter.emit($event.value)"
     ></app-dropdown>

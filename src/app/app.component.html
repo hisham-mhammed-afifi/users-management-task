@@ -1,4 +1,4 @@
-<main class="flex flex-col justify-between justify-items-center min-h-screen">
+<main class="grid grid-rows-7 grid-cols-1 min-h-screen max-w-screen">
   <section class="flex justify-end">
     <app-menu class="m-5" icon="globe-americas" [iconSize]="20">
       <button class="flex items-center py-1 px-2" (click)="changeLang('ar')">
@@ -16,7 +16,7 @@
     </app-menu>
   </section>
 
-  <section class="flex-grow flex justify-center items-center">
+  <section class="row-span-6">
     <router-outlet></router-outlet>
   </section>
 </main>

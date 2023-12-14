@@ -6,14 +6,14 @@
       </th>
       <th class="table-cell p-2"></th>
       <th class="table-cell p-2 text-start">
-        <span>{{ "USERSTABLE.HEADER.NAME" | translate }}</span>
+        <span>{{ "USER.PROP.NAME" | translate }}</span>
       </th>
       <th class="table-cell p-2">
         <button
           class="focus:text-orange-400 flex"
           (click)="sort_column.emit('email')"
         >
-          <span>{{ "USERSTABLE.HEADER.EMAIL" | translate }}</span>
+          <span>{{ "USER.PROP.EMAIL" | translate }}</span>
           <app-icon
             class="pt-[5px] ps-2"
             icon="chevron-expand"
@@ -26,7 +26,7 @@
           class="focus:text-orange-400 flex"
           (click)="sort_column.emit('address')"
         >
-          <span>{{ "USERSTABLE.HEADER.LOCATION" | translate }}</span>
+          <span>{{ "USER.PROP.LOCATION" | translate }}</span>
           <app-icon
             class="pt-[5px] ps-2"
             icon="chevron-expand"
@@ -39,7 +39,7 @@
           class="focus:text-orange-400 flex"
           (click)="sort_column.emit('joined')"
         >
-          <span>{{ "USERSTABLE.HEADER.JOINED" | translate }}</span>
+          <span>{{ "USER.PROP.JOINED" | translate }}</span>
           <app-icon
             class="pt-[5px] ps-2"
             icon="chevron-expand"
@@ -52,7 +52,7 @@
           class="focus:text-orange-400 flex"
           (click)="sort_column.emit('role')"
         >
-          <span>{{ "USERSTABLE.HEADER.ROLE" | translate }}</span>
+          <span>{{ "USER.PROP.ROLE" | translate }}</span>
           <app-icon
             class="pt-[5px] ps-2"
             icon="chevron-expand"
@@ -126,12 +126,6 @@
     </tbody>
   </ng-container>
 </table>
-
-<app-user-form
-  [user]="editedUser"
-  (add_user)="user_add.emit($event)"
-  (edit_user)="user_edit.emit($event)"
-></app-user-form>
 
 <ng-template #noUsers>
   <div class="my-5 mx-auto font-bold text-lg text-neutral-400">
