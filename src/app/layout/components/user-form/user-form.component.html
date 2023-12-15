@@ -19,16 +19,13 @@
       <input
         class="bg-transparent autofill:bg-transparent rounded focus:outline-none w-full border focus:right-5 focus:ring-orange-400 ring-offset-2 border-neutral-500 py-2 px-4"
         [ngClass]="{
-          'border-red-500': name.invalid && (name.touched || name.dirty)
+          'border-red-500': name.invalid && name.touched
         }"
         id="name"
         type="text"
         formControlName="name"
       />
-      <div
-        *ngIf="name.invalid && (name.touched || name.dirty)"
-        class="flex text-red-400 mx-2"
-      >
+      <div *ngIf="name.invalid && name.touched" class="flex text-red-400 mx-2">
         <small *ngIf="name.errors?.['required']">
           {{ "USER.FORM.NAME_ERR.REQUIRED" | translate }}
         </small>
@@ -42,14 +39,14 @@
       <input
         class="bg-transparent autofill:bg-transparent rounded focus:outline-none w-full border focus:right-5 focus:ring-orange-400 ring-offset-2 border-neutral-500 py-2 px-4"
         [ngClass]="{
-          'border-red-500': email.invalid && (email.touched || email.dirty)
+          'border-red-500': email.invalid && email.touched
         }"
         id="email"
         type="email"
         formControlName="email"
       />
       <div
-        *ngIf="email.invalid && (email.touched || email.dirty)"
+        *ngIf="email.invalid && email.touched"
         class="flex text-red-400 mx-2"
       >
         <small *ngIf="email.errors?.['required']">
