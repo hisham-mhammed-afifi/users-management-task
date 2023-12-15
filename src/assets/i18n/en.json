@@ -27,7 +27,19 @@
       "ROLE": "Permissions"
     },
     "EDIT": "Edit user",
-    "ADD": "Add new user"
+    "ADD": "Add new user",
+    "FORM": {
+      "NAME_ERR": {
+        "REQUIRED": "Name is required."
+      },
+      "EMAIL_ERR": {
+        "REQUIRED": "Email is required.",
+        "EMAIL": "Enter a valid email."
+      },
+      "LOC_ERR": {
+        "REQUIRED": "Location is required."
+      }
+    }
   },
   "ROLES": {
     "ADMIN": "Admin",
@@ -45,6 +57,14 @@
   "AUTH": {
     "LOGIN_TITLE": "Login to account",
     "ENTER_EMAIL": "Enter your email:",
-    "ENTER_PASS": "Enter your password:"
+    "ENTER_PASS": "Enter your password:",
+    "EMAIL_ERR": {
+      "REQUIRED": "Email field is required.",
+      "EMAIL": "Input should be a valid email."
+    },
+    "PASS_ERR": {
+      "REQUIRED": "Password field is required.",
+      "MIN_LEN": "Password must be at least {{value}} characters."
+    }
   }
 }

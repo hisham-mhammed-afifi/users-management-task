@@ -28,9 +28,9 @@ export class UserFormComponent implements OnInit, OnChanges {
   @Output() add_user = new EventEmitter<User>();
   @Output() edit_user = new EventEmitter<Partial<User>>();
 
-  name = new FormControl('', [Validators.required, Validators.minLength(3)]);
+  name = new FormControl('', [Validators.required]);
   email = new FormControl('', [Validators.required, Validators.email]);
-  address = new FormControl('', [Validators.required, Validators.minLength(3)]);
+  address = new FormControl('', [Validators.required]);
   role = new FormControl(UserRole.Viewer, [Validators.required]);
 
   userForm = new FormGroup({

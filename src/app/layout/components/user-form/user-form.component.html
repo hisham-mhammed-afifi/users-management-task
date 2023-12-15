@@ -12,37 +12,79 @@
   </div>
 
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <label class="flex" for="email">
-      {{ "USER.PROP.NAME" | translate }}
-    </label>
-    <input
-      class="bg-transparent autofill:bg-transparent rounded focus:outline-none w-full border focus:right-5 focus:ring-orange-400 ring-offset-2 border-neutral-500 py-2 px-4 mt-1 mb-3"
-      id="email"
-      type="text"
-      formControlName="name"
-    />
+    <div class="mt-3 min-h-[95px]">
+      <label class="flex mb-2" for="name">
+        {{ "USER.PROP.NAME" | translate }}
+      </label>
+      <input
+        class="bg-transparent autofill:bg-transparent rounded focus:outline-none w-full border focus:right-5 focus:ring-orange-400 ring-offset-2 border-neutral-500 py-2 px-4"
+        [ngClass]="{
+          'border-red-500': name.errors && (name.touched || name.dirty)
+        }"
+        id="name"
+        type="text"
+        formControlName="name"
+      />
+      <div
+        *ngIf="name.errors && (name.touched || name.dirty)"
+        class="flex text-red-400 mx-2"
+      >
+        <small *ngIf="name.errors['required']">
+          {{ "USER.FORM.NAME_ERR.REQUIRED" | translate }}
+        </small>
+      </div>
+    </div>
 
-    <label class="flex" for="email">
-      {{ "USER.PROP.EMAIL" | translate }}
-    </label>
-    <input
-      class="bg-transparent autofill:bg-transparent rounded focus:outline-none w-full border focus:right-5 focus:ring-orange-400 ring-offset-2 border-neutral-500 py-2 px-4 mt-1 mb-3"
-      id="email"
-      type="email"
-      formControlName="email"
-    />
+    <div class="mt-3 min-h-[95px]">
+      <label class="flex mb-2" for="email">
+        {{ "USER.PROP.EMAIL" | translate }}
+      </label>
+      <input
+        class="bg-transparent autofill:bg-transparent rounded focus:outline-none w-full border focus:right-5 focus:ring-orange-400 ring-offset-2 border-neutral-500 py-2 px-4"
+        [ngClass]="{
+          'border-red-500': email.errors && (email.touched || email.dirty)
+        }"
+        id="email"
+        type="email"
+        formControlName="email"
+      />
+      <div
+        *ngIf="email.errors && (email.touched || email.dirty)"
+        class="flex text-red-400 mx-2"
+      >
+        <small *ngIf="email.errors['required']">
+          {{ "USER.FORM.EMAIL_ERR.REQUIRED" | translate }}
+        </small>
+        <small *ngIf="email.errors['email']">
+          {{ "USER.FORM.EMAIL_ERR.EMAIL" | translate }}
+        </small>
+      </div>
+    </div>
 
-    <label class="flex" for="password">
-      {{ "USER.PROP.LOCATION" | translate }}
-    </label>
-    <input
-      class="bg-transparent autofill:bg-transparent rounded focus:outline-none w-full border focus:right-5 focus:ring-orange-400 ring-offset-2 border-neutral-500 py-2 px-4 mt-1 mb-3"
-      id="password"
-      type="text"
-      formControlName="address"
-    />
+    <div class="mt-3 min-h-[95px]">
+      <label class="flex mb-2" for="address">
+        {{ "USER.PROP.LOCATION" | translate }}
+      </label>
+      <input
+        class="bg-transparent autofill:bg-transparent rounded focus:outline-none w-full border focus:right-5 focus:ring-orange-400 ring-offset-2 border-neutral-500 py-2 px-4"
+        [ngClass]="{
+          'border-red-500': address.errors && (address.touched || address.dirty)
+        }"
+        id="address"
+        type="text"
+        formControlName="address"
+      />
+      <div
+        *ngIf="address.errors && (address.touched || address.dirty)"
+        class="flex text-red-400 mx-2"
+      >
+        <small *ngIf="address.errors['required']">
+          {{ "USER.FORM.LOC_ERR.REQUIRED" | translate }}
+        </small>
+      </div>
+    </div>
 
-    <div class="grid grid-cols-2 gap-2">
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3">
       <div class="flex items-center bg-red-400 rounded py-1 px-2">
         <input
           type="radio"
