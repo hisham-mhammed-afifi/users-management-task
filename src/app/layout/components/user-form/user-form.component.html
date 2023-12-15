@@ -68,15 +68,14 @@
       <input
         class="bg-transparent autofill:bg-transparent rounded focus:outline-none w-full border focus:right-5 focus:ring-orange-400 ring-offset-2 border-neutral-500 py-2 px-4"
         [ngClass]="{
-          'border-red-500':
-            address.invalid && (address.touched || address.dirty)
+          'border-red-500': address.invalid && address.touched
         }"
         id="address"
         type="text"
         formControlName="address"
       />
       <div
-        *ngIf="address.invalid && (address.touched || address.dirty)"
+        *ngIf="address.invalid && address.touched"
         class="flex text-red-400 mx-2"
       >
         <small *ngIf="address.errors?.['required']">
