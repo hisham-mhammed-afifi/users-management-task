@@ -10,7 +10,7 @@ Build with Angular and using Tailwindcss, ngx-translate and JsPDF
 Just type
 
 ```bash
-	npm i
+  npm i
 ```
 
 ### Development Running
