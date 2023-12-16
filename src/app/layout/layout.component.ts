@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { ModalService } from '../shared/services/modal.service';
 import { MODAL } from './constants/modals.constants';
 import { TranslateService } from '@ngx-translate/core';
+import { UserRole } from './models/UserRole.enum';
 
 @Component({
   selector: 'app-layout',
@@ -138,6 +139,19 @@ export class LayoutComponent implements OnInit {
     const table = document.getElementById('usersData');
     if (!table) return;
     this.utils.exportPDF(table);
+  }
+
+  exportTablePDF() {
+    const users = [...this.usersData.data].map((user: any) => {
+      return {
+        ...this.utils.stringifyObjectValues(user),
+        joined: new Intl.DateTimeFormat('en-US').format(new Date(user.joined)),
+        role: UserRole[user.role],
+      };
+    });
+
+    const headers = ['id', 'name', 'email', 'address', 'joined', 'role'];
+    this.utils.exportTablePDF(users, headers);
   }
 
   getStartDate(filter: DateFilter): Date {
