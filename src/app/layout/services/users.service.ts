@@ -1,15 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { CONSTANTS } from 'src/environments/environment';
+import { GetUsersParams, SortType } from '../models/GetUsersParams';
+import { GetUsersRes } from '../models/GetUsersRes';
 import { User } from '../models/User';
 import { UserRole } from '../models/UserRole.enum';
-
-export enum SortType {
-  ASC = 'asc',
-  DESC = 'desc',
-}
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +17,7 @@ export class UsersService {
   constructor(private _http: HttpClient) {}
 
   getUsers(
-    params: any = {
+    params: GetUsersParams = {
       q: '',
       _page: '1',
       _limit: CONSTANTS.UsersPerPage.toString(),
@@ -29,10 +26,10 @@ export class UsersService {
       joined_gte: '',
       role: '',
     }
-  ): Observable<{ data: User[]; total: string }> {
+  ): Observable<GetUsersRes> {
     if (params.role === '') delete params.role;
     return this._http
-      .get<any>(this.baseURL, {
+      .get<User[]>(this.baseURL, {
         params: { ...params },
         observe: 'response',
       })

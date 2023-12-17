@@ -35,7 +35,7 @@
       *ngIf="usersData.total"
       [itemsLength]="+usersData.total"
       [currentPage]="+getUsersParams._page"
-      [itemsPerPage]="getUsersParams._limit"
+      [itemsPerPage]="+getUsersParams._limit"
       (current_page)="pageChange($event)"
     ></app-paginator>
 
@@ -48,7 +48,7 @@
         [dataType]="'APP.ROW' | translate"
         [items]="usersPerPageList"
         position="bottom-9"
-        (selected_item)="perPageChange($event.value)"
+        (selected_item)="pageLimitChange($event.value)"
       ></app-dropdown>
     </div>
   </section>

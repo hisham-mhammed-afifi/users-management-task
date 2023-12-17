@@ -16,7 +16,13 @@
     "EDIT": "تعديل",
     "DELETE": "حذف",
     "ALL": "الكل",
-    "ANYTIME": "أي وقت"
+    "ANYTIME": "أي وقت",
+    "TOASTER": {
+      "ERR_MSG": "حدث خطأ ما",
+      "ADD_USER": "تمت إضافة {{name}} بنجاح.",
+      "EDIT_USER": "تم تعديل {{name}} بنجاح.",
+      "DELETE_USER": "تم الحذف بنجاح."
+    }
   },
   "USER": {
     "PROP": {

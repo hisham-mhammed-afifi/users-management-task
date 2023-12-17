@@ -11,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LoaderType } from 'src/app/shared/models/LoadersType.enum';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { MODAL } from '../../constants/modals.constants';
+import { GetUsersRes } from '../../models/GetUsersRes';
 import { User } from '../../models/User';
 import { UserRole } from '../../models/UserRole.enum';
 
@@ -24,7 +25,7 @@ export class UsersTableComponent implements OnInit, OnChanges {
   usersCount = 0;
 
   @Input() loading = false;
-  @Input() users: { data: User[]; total: string } = { data: [], total: '0' };
+  @Input() users!: GetUsersRes;
   @Output() sort_column = new EventEmitter<string>();
   @Output() user_delete = new EventEmitter<string>();
   @Output() edited_user = new EventEmitter<User>();

@@ -1,12 +1,49 @@
 import { Injectable } from '@angular/core';
 import html2canvas from 'html2canvas';
 import jsPDF, { CellConfig } from 'jspdf';
+import { DateFilter } from 'src/app/layout/models/DateFilter.enum';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UtilsService {
   constructor() {}
+
+  /**
+   *
+   * @param text to be parsed to number
+   * @returns the number representation for the given text
+   */
+  parseToNum(text: string): number {
+    if (isNaN(+text)) return 0;
+    return Number(text);
+  }
+
+  /**
+   *
+   * @param filter of type @enum DateFilter
+   * @returns a date to start @interface Date - and the end date is today
+   */
+  getStartDate(filter: DateFilter): Date {
+    let now = new Date();
+    let start = new Date(0);
+    switch (filter) {
+      case DateFilter.ThisWeek:
+        start = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        break;
+      case DateFilter.ThisMonth:
+        start = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+        break;
+      case DateFilter.ThisYear:
+        start = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
+        break;
+      default:
+        start = new Date(0);
+        break;
+    }
+
+    return start;
+  }
 
   /**
    *
