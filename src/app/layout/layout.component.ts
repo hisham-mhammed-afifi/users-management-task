@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './models/User';
-import { SortType, UsersService } from './services/users.service';
+import { UsersService } from './services/users.service';
 import { MenuItem } from '../shared/components/dropdown/dropdown.component';
 import { CONSTANTS } from 'src/environments/environment';
 import { DateFilter } from './models/DateFilter.enum';
@@ -10,6 +10,9 @@ import { ModalService } from '../shared/services/modal.service';
 import { MODAL } from './constants/modals.constants';
 import { TranslateService } from '@ngx-translate/core';
 import { UserRole } from './models/UserRole.enum';
+import { ToastrService } from 'ngx-toastr';
+import { GetUsersParams, SortType } from './models/GetUsersParams';
+import { GetUsersRes } from './models/GetUsersRes';
 
 @Component({
   selector: 'app-layout',
@@ -18,10 +21,10 @@ import { UserRole } from './models/UserRole.enum';
 })
 export class LayoutComponent implements OnInit {
   lodingUsers = false;
-  usersData: { data: User[]; total: string } = { data: [], total: '0' };
+  usersData: GetUsersRes = { data: [], total: '0' };
   editedUser!: User;
 
-  getUsersParams: any = {
+  getUsersParams: GetUsersParams = {
     _limit: CONSTANTS.UsersPerPage.toString(),
     q: '',
     _page: '1',
@@ -43,7 +46,8 @@ export class LayoutComponent implements OnInit {
     private utils: UtilsService,
     private router: Router,
     private modal: ModalService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -51,35 +55,61 @@ export class LayoutComponent implements OnInit {
   }
 
   parseToNum(text: string): number {
-    if (isNaN(+text)) return 0;
-    return Number(text);
+    return this.utils.parseToNum(text);
   }
 
   getAllUsers(params: any) {
     this.lodingUsers = true;
-    this.usersSrv.getUsers(params).subscribe((data) => {
-      this.usersData = data;
-      this.lodingUsers = false;
+    this.usersSrv.getUsers(params).subscribe({
+      next: (data) => {
+        this.usersData = data;
+        this.lodingUsers = false;
+      },
+      error: () => {
+        this.toastr.error(this.translate.instant('APP.TOASTER.ERR_MSG'));
+      },
     });
   }
 
   addUser(user: User) {
-    this.usersSrv.addUser(user).subscribe((user) => {
-      this.getAllUsers({ ...this.getUsersParams });
-      this.modal.toggleModal(MODAL.USER);
+    this.usersSrv.addUser(user).subscribe({
+      next: (user) => {
+        this.getAllUsers({ ...this.getUsersParams });
+        this.modal.toggleModal(MODAL.USER);
+        this.toastr.success(
+          this.translate.instant('APP.TOASTER.ADD_USER', { name: user.name })
+        );
+      },
+      error: () => {
+        this.toastr.error(this.translate.instant('APP.TOASTER.ERR_MSG'));
+      },
     });
   }
 
   editUser(user: Partial<User>) {
-    this.usersSrv.updateUser(user).subscribe((user) => {
-      this.getAllUsers({ ...this.getUsersParams });
-      this.modal.toggleModal(MODAL.USER);
+    this.usersSrv.updateUser(user).subscribe({
+      next: (user) => {
+        this.getAllUsers({ ...this.getUsersParams });
+        this.modal.toggleModal(MODAL.USER);
+        this.toastr.success(
+          this.translate.instant('APP.TOASTER.EDIT_USER', { name: user.name })
+        );
+      },
+      error: () => {
+        this.toastr.error(this.translate.instant('APP.TOASTER.ERR_MSG'));
+      },
     });
   }
 
   deleteUser(userId: string) {
-    this.usersSrv.deleteUser(userId).subscribe((res) => {
-      this.getAllUsers({ ...this.getUsersParams });
+    this.usersSrv.deleteUser(userId).subscribe({
+      next: (res) => {
+        this.getAllUsers({ ...this.getUsersParams });
+        this.toastr.success(this.translate.instant('APP.TOASTER.DELETE_USER'));
+      },
+      error: () => {
+        this.toastr.error(this.translate.instant('APP.TOASTER.ERR_MSG'));
+      },
     });
   }
 
@@ -91,7 +121,7 @@ export class LayoutComponent implements OnInit {
     });
   }
 
-  perPageChange(limit: string) {
+  pageLimitChange(limit: string) {
     this.getUsersParams._limit = limit;
     this.getAllUsers({
       ...this.getUsersParams,
@@ -107,16 +137,18 @@ export class LayoutComponent implements OnInit {
 
   filterByJoined(filter: DateFilter) {
     this.getUsersParams._page = '1';
-    this.getUsersParams.joined_gte = this.getStartDate(filter).toISOString();
+    this.getUsersParams.joined_gte = this.utils
+      .getStartDate(filter)
+      .toISOString();
     this.getAllUsers({
       ...this.getUsersParams,
-      joined_gte: this.getStartDate(filter).toISOString(),
+      joined_gte: this.utils.getStartDate(filter).toISOString(),
     });
   }
 
   filterByPermissions(role: number) {
     this.getUsersParams._page = '1';
-    this.getUsersParams.role = role;
+    this.getUsersParams.role = role + '';
     this.getAllUsers({ ...this.getUsersParams, role });
   }
 
@@ -142,7 +174,7 @@ export class LayoutComponent implements OnInit {
   }
 
   exportTablePDF() {
-    const users = [...this.usersData.data].map((user: any) => {
+    const users = [...(<User[]>this.usersData.data)].map((user: any) => {
       return {
         ...this.utils.stringifyObjectValues(user),
         joined: new Intl.DateTimeFormat('en-US').format(new Date(user.joined)),
@@ -152,27 +184,6 @@ export class LayoutComponent implements OnInit {
 
     const headers = ['id', 'name', 'email', 'address', 'joined', 'role'];
     this.utils.exportTablePDF(users, headers);
-  }
-
-  getStartDate(filter: DateFilter): Date {
-    let now = new Date();
-    let start = new Date(0);
-    switch (filter) {
-      case DateFilter.ThisWeek:
-        start = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-        break;
-      case DateFilter.ThisMonth:
-        start = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
-        break;
-      case DateFilter.ThisYear:
-        start = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
-        break;
-      default:
-        start = new Date(0);
-        break;
-    }
-
-    return start;
   }
 
   logout() {

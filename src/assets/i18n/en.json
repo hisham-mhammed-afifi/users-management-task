@@ -16,7 +16,13 @@
     "EDIT": "Edit",
     "DELETE": "Delete",
     "ALL": "All",
-    "ANYTIME": "Anytime"
+    "ANYTIME": "Anytime",
+    "TOASTER": {
+      "ERR_MSG": "Something went wrong.",
+      "ADD_USER": "{{name}} added successfully.",
+      "EDIT_USER": "{{name}} edited successfully.",
+      "DELETE_USER": "Deleted successfully."
+    }
   },
   "USER": {
     "PROP": {
